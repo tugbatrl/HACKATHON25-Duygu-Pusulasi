@@ -1,0 +1,59 @@
+body{
+    font-family:'Comic Sans MS',cursive,sans-serif;
+    font-weight: bold;
+    font-size: 36px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color:transparent;
+    color: #333;
+    padding: 20px;
+    background-image: url('images/WhatsApp\ Görsel\ 2025-07-24\ saat\ 20.10.34_92c7301a.jpg');
+    background-size: cover;  /* ekranı tamamen kaplasın */
+    background-repeat: no-repeat;
+    background-position: center;
+    ;
+    
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 40px;
+    background-color: rgb(200, 144, 109);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+h1{
+    font-size: 48px;
+    color:#000000;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0 , 0.3);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+
+}
+
+.scenario-text {
+    font-size: 20px;
+    margin:20px 0;
+}
+
+.options button, #restart-button {
+    background-color: #4b0082;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    margin: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+
+.options button:hover , #restart-button:hover {
+    background-color: 2e004d;
+}
