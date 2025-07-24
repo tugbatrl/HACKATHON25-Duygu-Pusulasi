@@ -1,0 +1,142 @@
+Proje Adı: Duygu Pusulası (Veya Sosyal Beceri Laboratuvarı)
+Hackathon Amacı:
+9-12 yaş aralığındaki çocukların tek bir sosyal senaryo içinde metin tabanlı interaktif seçimler yaparken, bu seçimlerinin sosyal beceri ve duygusal zeka açısından YZ tarafından analiz edildiği ve bir "öğretmen raporu" oluşturulduğu basit bir prototip geliştirmek.
+
+Temel Odak Noktaları:
+Tek bir sabit senaryo: Kullanıcının seçimleri senaryoyu dallandırmayacak, her zaman aynı akıştan geçecek.
+
+Kullanıcıdan girdi toplama: Her adımda kullanıcının yanıtlarını (seçimlerini) kaydetme.
+
+YZ tabanlı analiz: Kaydedilen yanıtları YZ ile analiz ederek sosyal beceri/duygusal zeka değerlendirmesi yapma.
+
+Öğretmen raporu: Analiz sonuçlarını, bir öğretmenin anlayabileceği, pedagojik değeri olan bir rapor formatında sunma.
+
+13 Günlük Hızlandırılmış Yol Haritası ve Görev Dağılımı:
+Genel Kural: Her gün sonunda birbirinizle senkronize olun. Ne yaptığınızı, nerede takıldığınızı konuşun. Problem çözmek için birlikte beyin fırtınası yapın.
+
+Aşama 1: Temel Kurulum ve Senaryo Geliştirme (Gün 1-3)
+Görev Dağılımı:
+
+Kişi 1 (Arayüz & Ön Uç Odaklı): HTML/CSS iskeletini oluşturma, genel sayfa düzenini ve görselliği tasarlama.
+
+Kişi 2 (Arka Uç & Mantık Odaklı): Python Flask/FastAPI temel kurulumu, senaryo verilerini Python'da tutacak yapıyı oluşturma (Python dict/JSON gibi).
+
+Gün 1:
+
+Birlikte:
+
+Senaryo Belirleme: Tek bir basit ve net senaryo seçin. Örn: "Yeni bir öğrencinin okula alışma süreci ve ona yardım etme." Veya "Arkadaşlık ilişkilerinde çıkan küçük bir anlaşmazlığı çözme." Bu senaryonun sonunda mutlaka 4-5 ana soru/seçim noktası belirleyin. (Çok fazla soru olmasın, YZ analizini kolaylaştırır).
+
+Beklenen Cevap/Davranış Belirleme: Her bir soru için "ideal", "orta" ve "düşük" sosyal beceri/duygusal zeka seviyesine işaret eden cevapları kabaca belirleyin. Bu, daha sonra YZ için anahtar olacak.
+
+Teknoloji Onayı: HTML, CSS, JavaScript (Frontend) ve Python (Flask/FastAPI - Backend) + YZ için OpenAI API (GPT-3.5/GPT-4) veya Google Gemini API (bütçe ve erişim durumuna göre) kullanılacak. (API kullanımının en hızlı yol olduğunu unutmayın, manuel rule-set çok zaman alabilir).
+
+Kişi 1: Temel HTML belgesi (index.html) ve boş CSS dosyası (style.css) oluşturma. <h1> başlık, senaryo metni için <p>, seçenekler için <div> ve buttons gibi temel elemanları yerleştirme.
+
+Kişi 2: Python Flask/FastAPI projesini başlatma. Temel "Hello World" veya ana sayfa gösterecek bir endpoint oluşturma. Senaryo adımlarını ve seçeneklerini Python sözlüğü (dictionary) yapısında taslak olarak oluşturma.
+
+Gün 2:
+
+Kişi 1: HTML/CSS ile oyunun görsel tasarımını (layout, renkler, fontlar) 9-12 yaş grubuna uygun, ilgi çekici ve basit hale getirme. Kullanıcıdan cevap alınacak her adım için gerekli HTML öğelerini (metin gösterim alanı, butonlar/inputlar) ekleme.
+
+Kişi 2: Python tarafında senaryo adımlarını ve bu adımlara ait soruları/seçenekleri içeren dinamik yapıyı oluşturma. Kullanıcının seçimini alacak ve bir sonraki adıma geçirecek basit bir Flask/FastAPI route (örneğin /next_step) taslağını oluşturma.
+
+Gün 3:
+
+Birlikte: Ön yüz (HTML/CSS) ve Arka yüz (Python) arasında temel veri akışını test etme. (Kullanıcı ön yüzde bir butona tıklayacak, bu bilgi arka yüze gidecek ve arka yüzden yeni senaryo metni/seçenekleri ön yüze geri dönecek).
+
+Kişi 1: JavaScript ile kullanıcı buton tıklamalarını yakalama ve bu bilgiyi Python backend'ine fetch veya XMLHttpRequest ile gönderme. Gelen cevabı ekranda gösterme.
+
+Kişi 2: Arka uçta POST isteğini alacak ve senaryo metnini döndürecek route'u tamamlama. JSON veri alışverişini sağlama.
+
+Aşama 2: Kullanıcı Cevaplarını Toplama ve YZ Entegrasyonu (Gün 4-8)
+Görev Dağılımı:
+
+Kişi 1 (Arayüz & Ön Uç Odaklı): Kullanıcının tüm cevaplarını istemci tarafında veya sunucu tarafında geçici olarak depolama mekanizmasını oluşturma. YZ raporunu göstermek için arayüzü hazırlama.
+
+Kişi 2 (Arka Uç & Mantık Odaklı): YZ API'si ile entegrasyonu kurma, YZ'ye gönderilecek prompt'ları tasarlama, YZ'den gelen cevabı işleme ve öğretmen raporu için taslak formatı oluşturma.
+
+Gün 4-5:
+
+Kişi 1: Kullanıcının senaryo boyunca yaptığı tüm seçimleri/verdiği cevapları kaydedecek bir mekanizma kurma. Bunu JavaScript'te bir dizi (array) içinde tutmak en basitidir. Oyun bittiğinde bu diziyi arka uca gönderecek bir "Oyun Bitti / Rapor Oluştur" butonu/işlevi ekleme.
+
+Kişi 2: YZ API'si (Gemini, GPT) için API anahtarını ayarlama ve Python kodunda temel bir API çağrısı yapmayı test etme. YZ'ye bir deneme metni gönderip cevap almayı deneme.
+
+Gün 6-7:
+
+Kişi 2:
+
+Prompt Mühendisliği: YZ'ye gönderilecek prompt'ları (talimatları) çok dikkatli tasarlayın. Örneğin:
+
+"Aşağıdaki senaryoda bir çocuğun (9-12 yaş) verdiği cevaplar bulunmaktadır. Bu cevapları sosyal beceriler (iletişim, empati, problem çözme) ve duygusal zeka (duygu tanıma, duygu yönetimi) açısından analiz et.
+Senaryo: [Seçtiğiniz senaryonun kısa özeti]
+Çocuğun cevapları:
+1. Soruya Cevabı: [Cevap 1]
+2. Soruya Cevabı: [Cevap 2]
+...
+Bir öğretmen için, bu çocuğun sosyal becerileri ve duygusal zekası hakkında 3-4 maddelik kısa bir rapor hazırla. Her madde, çocuğun güçlü yönlerini veya geliştirilebilecek alanlarını belirtmeli ve somut bir öneri içermelidir. Raporu pozitif ve yapıcı bir dille yaz."
+Bu prompt'u kullanarak YZ'den "Öğretmen Raporu"nu çekme mekanizmasını oluşturma.
+
+Kişi 1: Oyun bittiğinde (veya tüm sorular cevaplandığında) kullanıcının cevaplarını içeren diziyi Python backend'ine gönderme işlevini tamamlama. Backend'den gelen YZ raporunu göstermek için HTML sayfasında bir alan hazırlama.
+
+Gün 8:
+
+Birlikte: YZ raporunun ilk entegrasyonunu test edin. Kullanıcı oyunu bitirdiğinde YZ raporu görünüyor mu? Rapor anlaşılır ve ilgili mi? İlk prompt'larınızla ne tür raporlar alıyorsunuz, beklediğiniz gibi mi?
+
+Kişi 2: YZ'den gelen raporun formatını ve içeriğini iyileştirmek için prompt'larda ince ayarlar yapma.
+
+Kişi 1: YZ raporunu web sayfasında düzenli ve okunaklı bir şekilde gösterme.
+
+Aşama 3: Test, İyileştirme ve Sunum Hazırlığı (Gün 9-13)
+Görev Dağılımı:
+
+Birlikte: Kapsamlı testler, hata ayıklama, son iyileştirmeler ve sunum hazırlığı.
+
+Gün 9-10:
+
+Birlikte:
+
+Kapsamlı Test: Oyunu baştan sona oynayarak her adımın düzgün çalıştığından emin olun. Özellikle kullanıcı cevaplarının doğru toplandığını ve YZ'ye doğru şekilde iletildiğini kontrol edin.
+
+YZ Raporu Kalitesi Kontrolü: Farklı cevap kombinasyonları ile YZ'den alınan raporları gözden geçirin. Raporlar gerçekten anlamlı ve faydalı mı? Dil tonu uygun mu?
+
+Geri Bildirim Döngüsü: Birbirinize ve mümkünse dışarıdan birine (örneğin ailenizdeki bir çocuk veya ebeveyn) prototipi göstererek hızlı geri bildirimler alın. "Anlaşılıyor mu?", "İlgi çekici mi?", "Rapor faydalı mı?"
+
+Hata Ayıklama: Ortaya çıkan tüm bug'ları (hataları) giderin.
+
+Gün 11-12:
+
+Birlikte:
+
+Sunum İçeriği: Projenin amacını, neden bu projeyi seçtiğinizi, 9-12 yaş grubu için önemini, YZ'nin rolünü ve nasıl çalıştığını anlatan kısa ve öz bir metin/sunum taslağı hazırlayın.
+
+Demo Planı: Sunumda neleri göstereceğinizi (oyunun nasıl oynandığı, YZ raporunun nasıl oluşturulduğu) adım adım belirleyin. En etkileyici kısımlara odaklanın.
+
+"Gelecek Özellikler" kısmı: Hackathon süresi kısıtlı olduğu için ekleyemediğiniz ama gelecekte eklemek istediğiniz özellikleri (örneğin sesli etkileşim, görsel tanıma, farklı senaryolar, oyunlaştırma öğeleri) listeleyin. Bu, projenizin potansiyelini gösterecektir.
+
+Arayüz Son Dokunuşları: CSS ile son görsel iyileştirmeleri yapın. Animasyonlar, geçişler ekleyebilirsiniz (abartmadan).
+
+Gün 13: Final Dokunuşlar ve Sunum Günü
+
+Birlikte:
+
+Projenin son kontrollerini yapın. Tüm bağlantılar, butonlar, YZ entegrasyonu düzgün çalışıyor mu?
+
+Sunumu birkaç kez baştan sona prova edin. Zamanlamaya dikkat edin.
+
+Sunumda kendinize güvenli ve heyecanlı olun. Projenizin potansiyelini vurgulayın.
+
+Önemli Notlar ve İpuçları:
+API Anahtarı Gizliliği: API anahtarınızı asla doğrudan frontend kodunda (JavaScript) tutmayın. Her zaman backend (Python) üzerinden kullanın.
+
+Sabit Senaryo: Senaryonun sabit olması, YZ analizini çok kolaylaştıracaktır. Çünkü her sorunun cevabını hangi beceriyi temsil ettiğini siz önceden daha net belirleyebilirsiniz.
+
+Basitlik: 13 gün çok uzun bir süre değil. Her şeyi mükemmel yapmaya çalışmak yerine, çekirdek işlevi sorunsuz çalışır hale getirmeye odaklanın.
+
+Versiyon Kontrolü: Git/GitHub kullanın! Her gün sonunda yaptığınız değişiklikleri commit edin ve push'layın. Bu, olası bir problemde geri dönmenizi sağlar ve birlikte çalışmayı kolaylaştırır.
+
+Mentor Desteği: Hackathon'da mentorlar varsa, takıldığınız yerlerde onlardan yardım istemekten çekinmeyin.
+
+Esneklik: Planlar değişebilir. Takıldığınız bir yerde alternatif çözümler düşünmeye açık olun.
+
+Bu detaylı yol haritası ve görev dağılımı ile projenizi 13 günde başarıyla tamamlayabilir ve jüriyi etkileyebilirsiniz. Şimdiden başarılar dilerim!
