@@ -1,7 +1,12 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
-app = Flask(__name__)
+from flask_cors import CORS # flask_cors kütüphanesini içeri aktarıyoruz
 
+app = Flask(__name__)
+CORS(app) # CORS'u uygulamanıza dahil ediyoruz
+
+# Kullanıcının tüm senaryo cevaplarını burada tutacağız.
+# Bu liste, her senaryo adımında kullanıcının seçimini kaydedecek.
+collected_data = []
 
 SCENARIO = {
     "step1": {
@@ -43,27 +48,62 @@ SCENARIO = {
     "end": {
         "text": "Senaryo tamamlandı! Şimdi raporunu oluşturuyoruz...",
         "options": [],
-        "next_step": "report"
+        "next_step": "report" # Bu, senaryo bittiğinde rapor aşamasına geçeceğimizi belirtir.
     }
 }
 
 @app.route('/')
 def index():
+    # Bu rota, uygulamanın ana sayfasına gelen istekleri karşılar.
+    # Şimdilik sadece bir karşılama mesajı döndürüyor.
     return "Merhaba, Duygu Pusulası'na hoş geldin!"
 
 
 @app.route('/next_step', methods=['POST'])
 def next_step():
+    # Frontend'den gelen JSON verisini al.
     data = request.get_json()
-    current_step_key = data.get('current_step', 'step1')
-    user_choice = data.get('choice') 
+    # Mevcut adımın anahtarını al (örn. "step1"). Frontend'den gelmiyorsa 'None' olur.
+    current_step_key = data.get('current_step') 
+    # Kullanıcının seçtiği seçeneğin değerini al (örn. "A").
+    user_choice_value = data.get('choice') 
 
-    # Bir sonraki adımın anahtarını al.
-    next_step_key = SCENARIO.get(current_step_key, {}).get('next_step', 'end')
+    # Kullanıcının seçimini collected_data listesine kaydet.
+    # Sadece 'current_step_key' ve 'user_choice_value' varsa kaydet (yani ilk çağrı değilse).
+    if current_step_key and user_choice_value:
+        collected_data.append({
+            "step": current_step_key,
+            "choice_value": user_choice_value
+        })
+        # Konsola kaydettiğin veriyi yazdır (geliştirme ve test için faydalıdır).
+        print(f"Collected data for {current_step_key}: {user_choice_value}")
+        print(f"All collected data: {collected_data}")
+
+    # Senaryonun bir sonraki adımını belirle.
+    # Eğer current_step_key yoksa (yani frontend'den ilk çağrıysa), 'step1' ile başla.
+    if current_step_key is None:
+        next_step_key = 'step1'
+    else:
+        # SCENARIO sözlüğünden mevcut adımın 'next_step' değerini al.
+        # Eğer 'next_step' anahtarı yoksa (ki bu senaryonun sonu anlamına gelir), varsayılan olarak 'end' kullan.
+        next_step_key = SCENARIO.get(current_step_key, {}).get('next_step', 'end')
     
-    # Sonraki adımın verilerini JSON olarak döndür.
+    # Eğer bir sonraki adım 'report' ise (yani senaryo bittiyse), rapor oluşturma aşamasına geç.
+    if next_step_key == 'report':
+        # Burada daha sonra YZ'ye rapor oluşturma isteği gönderme mantığı gelecek.
+        # Şimdilik frontend'e raporun hazırlandığını belirten bir mesaj gönderiyoruz.
+        return jsonify({
+            "text": "Senaryo tamamlandı! Raporunuz hazırlanıyor...",
+            "options": [], # Bu adımda seçenek olmayacak.
+            "next_step": "report_generated" # Frontend'in raporun hazırlandığını anlaması için özel bir anahtar.
+        })
+    
+    # Bir sonraki adımın verilerini (metin ve seçenekler) JSON olarak frontend'e gönder.
+    # SCENARIO.get(next_step_key) ile ilgili adımın tüm verilerini alırız.
     return jsonify(SCENARIO.get(next_step_key))
 
 
 if __name__ == '__main__':
+    # Flask uygulamasını hata ayıklama modunda çalıştır.
+    # Bu modda kodda değişiklik yaptığınızda sunucu otomatik olarak yeniden başlar.
     app.run(debug=True)
