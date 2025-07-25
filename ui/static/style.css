@@ -10,7 +10,7 @@ body{
     background-color:transparent;
     color: #333;
     padding: 20px;
-    background-image: url('images/WhatsApp\ Görsel\ 2025-07-24\ saat\ 20.10.34_92c7301a.jpg');
+    background-image: url('images/arkaplanresmi.jpg');
     background-size: cover;  /* ekranı tamamen kaplasın */
     background-repeat: no-repeat;
     background-position: center;
@@ -51,6 +51,7 @@ h1{
     border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
+    display: block;
 
 }
 
