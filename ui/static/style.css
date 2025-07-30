@@ -1,60 +1,163 @@
-body{
-    font-family:'Comic Sans MS',cursive,sans-serif;
-    font-weight: bold;
-    font-size: 36px;
-    margin: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color:transparent;
-    color: #333;
-    padding: 20px;
-    background-image: url('images/arkaplanresmi.jpg');
-    background-size: cover;  /* ekranı tamamen kaplasın */
-    background-repeat: no-repeat;
-    background-position: center;
-    ;
-    
+/* reset & temel ayarlar */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: url(images/arkaplan2.jpg) no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 40px;
-    background-color: rgb(200, 144, 109);
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-    text-align: center;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+  transition: all 0.3s ease-in-out;
 }
 
-h1{
-    font-size: 48px;
-    color:#000000;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0 , 0.3);
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-
+/* ekranlar */
+.screen {
+  display: none;
 }
 
+.screen.active {
+  display: block;
+}
+
+/* başlık */
+h1 {
+  font-size: 2rem;
+  color: #6a0dad;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #4b0082;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* select + input */
+select,
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+select:focus,
+input[type="text"]:focus {
+  border-color: #a279ff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(162, 121, 255, 0.5);
+}
+
+/* buton */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin-top: 20px;
+  background: linear-gradient(135deg, #b388ff, #8e44ad);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(142, 68, 173, 0.4);
+  background: linear-gradient(135deg, #a66bff, #732d91);
+}
+
+/* soru kutusu */
 .scenario-text {
-    font-size: 20px;
-    margin:20px 0;
+  background-color: #f0ebff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  text-align: center;
+  color: #333;
 }
 
-.options button, #restart-button {
-    background-color: #4b0082;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    margin: 10px;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    display: block;
-
+/* seçenekler */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.options button:hover , #restart-button:hover {
-    background-color: 2e004d;
+.options button {
+  padding: 12px;
+  border: 2px solid #a279ff;
+  background-color: white;
+  color: #6a0dad;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.options button:hover {
+  background-color: #e6dbff;
+  transform: scale(1.03);
+}
+
+/* feedback */
+.feedback {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: #4b0082;
+}
+
+/* öğretmen raporu */
+#report-container {
+  padding: 20px;
+}
+
+#teacher-report-content {
+  background: #faf7ff;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  color: #333;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+/* responsive */
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .btn {
+    font-size: 14px;
+  }
 }
