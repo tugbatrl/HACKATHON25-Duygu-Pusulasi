@@ -191,30 +191,45 @@
     <script>
         // Sayfa yüklendiğinde öğretmen bilgilerini göster
         document.addEventListener('DOMContentLoaded', function() {
-            const teacherName = localStorage.getItem('teacherName');
-            const teacherSurname = localStorage.getItem('teacherSurname');
-            const teacherClass = localStorage.getItem('teacherClass');
-            
-            if (teacherName && teacherSurname && teacherClass) {
-                document.getElementById('teacher-info').textContent = 
-                    `${teacherName} ${teacherSurname} - ${teacherClass} Sınıfı`;
-            } else {
-                // Eğer bilgi yoksa ana sayfaya yönlendir
-                window.location.href = '/';
-            }
+            // Öğretmen bilgilerini API'den al
+            loadTeacherInfo();
             
             // İstatistikleri yükle
             loadStats();
         });
+        
+        function loadTeacherInfo() {
+            // Öğretmen bilgilerini session'dan al
+            fetch('/api/teacher-info')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('teacher-info').textContent = 
+                            `${data.name} ${data.surname} - ${data.class_name} Sınıfı`;
+                    } else {
+                        // Eğer bilgi yoksa ana sayfaya yönlendir
+                        window.location.href = '/';
+                    }
+                })
+                .catch(error => {
+                    console.error('Öğretmen bilgisi yükleme hatası:', error);
+                    window.location.href = '/';
+                });
+        }
         
         function loadStats() {
             // Python session'ından verileri al
             fetch('/api/class-stats')
                 .then(response => response.json())
                 .then(data => {
+                    if (data.error) {
+                        console.error('İstatistik hatası:', data.error);
+                        return;
+                    }
+                    
                     document.getElementById('total-students').textContent = data.total_students || '0';
                     document.getElementById('completed-games').textContent = data.total_reports || '0';
-                    document.getElementById('avg-score').textContent = '85%'; // Bu hesaplanabilir
+                    document.getElementById('avg-score').textContent = `${data.avg_score || 0}%`;
                     document.getElementById('active-students').textContent = data.today_reports || '0';
                 })
                 .catch(error => {
@@ -232,23 +247,23 @@
         }
         
         function viewClassAnalysis() {
-            alert('Sınıf analizi sayfası açılacak...');
+            window.location.href = '/class-analysis';
         }
         
         function viewProgress() {
-            alert('Gelişim takibi sayfası açılacak...');
+            window.location.href = '/progress-tracking';
         }
         
         function manageGame() {
-            alert('Oyun yönetimi sayfası açılacak...');
+            window.location.href = '/game-management';
         }
         
         function assignHomework() {
-            alert('Ödev atama sayfası açılacak...');
+            window.location.href = '/homework-assignment';
         }
         
         function viewNotifications() {
-            alert('Bildirimler sayfası açılacak...');
+            window.location.href = '/notifications';
         }
     </script>
 </body>

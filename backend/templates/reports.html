@@ -146,19 +146,42 @@
     <script>
         // Sayfa yüklendiğinde raporları yükle
         document.addEventListener('DOMContentLoaded', function() {
-            const teacherClass = localStorage.getItem('teacherClass');
-            if (teacherClass) {
-                document.getElementById('class-info').textContent = `${teacherClass} Sınıfı`;
-            }
+            // Öğretmen bilgilerini API'den al
+            loadTeacherInfo();
             
+            // Raporları yükle
             loadReports();
         });
+        
+        function loadTeacherInfo() {
+            // Öğretmen bilgilerini session'dan al
+            fetch('/api/teacher-info')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('class-info').textContent = `${data.class_name} Sınıfı`;
+                    } else {
+                        // Eğer bilgi yoksa ana sayfaya yönlendir
+                        window.location.href = '/';
+                    }
+                })
+                .catch(error => {
+                    console.error('Öğretmen bilgisi yükleme hatası:', error);
+                    window.location.href = '/';
+                });
+        }
         
         function loadReports() {
             // Python session'ından sınıf raporlarını al
             fetch('/api/class-reports')
                 .then(response => response.json())
                 .then(data => {
+                    if (data.error) {
+                        console.error('Rapor hatası:', data.error);
+                        document.getElementById('reports-content').innerHTML = 
+                            '<div class="no-reports">Raporlar yüklenirken bir hata oluştu.</div>';
+                        return;
+                    }
                     displayReports(data.reports);
                 })
                 .catch(error => {

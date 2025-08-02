@@ -1,0 +1,20 @@
+{
+    "users": {
+        "1": {
+            "name": "canan",
+            "surname": "karabulut",
+            "user_type": "ogrenci",
+            "grade": "6b"
+        },
+        "2": {
+            "name": "tuğba",
+            "surname": "tarla",
+            "user_type": "ogretmen",
+            "class_name": "6b"
+        }
+    },
+    "reports": {},
+    "student_progress": {},
+    "next_user_id": 3,
+    "next_report_id": 1
+}
