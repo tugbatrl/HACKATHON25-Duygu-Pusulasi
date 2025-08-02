@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duygu Pusulası - Ana Sayfa</title>
+    <style>* {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html{
+        height: 100%;
+        margin: 0;
+        padding: 0
+      }
+      
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: url(../../ui/static/images/arkaplan2.jpg) no-repeat center center fixed;
+        background-size: cover;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .container {
+        background: rgba(255, 255, 255, 0.85);
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 500px;
+        transition: all 0.3s ease-in-out;
+        height: 700px;
+      }
+      
+      
+      .welcome-container {
+        max-width: 800px;
+        width: 100%;
+        padding: 60px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      
+      .welcome-title {
+        color: #333;
+        font-size: 3em;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      .welcome-subtitle {
+        color: #666;
+        font-size: 1.3em;
+        margin-bottom: 50px;
+        line-height: 1.6;
+      }
+      
+      .login-buttons {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      .login-btn {
+        padding: 20px 40px;
+        border: none;
+        border-radius: 15px;
+        font-size: 1.2em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        min-width: 200px;
+      }
+      
+      .student-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        width: 255px;
+        height: 70px;
+      }
+      
+      .teacher-btn {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        width: 255px;
+        height: 70px;
+      }
+      
+      .login-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+      
+      .feature-list {
+        margin-top: 50px;
+        text-align: left;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .feature-list h3 {
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      
+      .feature-list ul {
+        list-style: none;
+        padding: 0;
+      }
+      
+      .feature-list li {
+        padding: 10px 0;
+        color: #666;
+        position: relative;
+        padding-left: 30px;
+      }
+      
+      .feature-list li:before {
+        content: "✨";
+        position: absolute;
+        left: 0;
+        color: #667eea;
+      }</style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="welcome-container">
+            <h1 class="welcome-title">Duygu Pusulası</h1>
+            <p class="welcome-subtitle">
+                Çocukların sosyal-duygusal gelişimini analiz eden interaktif oyun platformu
+            </p>
+            
+            <div class="login-buttons">
+                <a href="/student" class="login-btn student-btn">
+                    👨‍🎓 Öğrenci Girişi
+                </a>
+                <a href="/teacher" class="login-btn teacher-btn">
+                    👩‍🏫 Öğretmen Girişi
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duygu Pusulası - Öğretmen</title>
+    <style>.teacher-form {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+      
+      .form-title {
+        color: #333;
+        margin-bottom: 30px;
+        font-size: 2.2em;
+        text-align: center;
+      }
+      
+      .form-group {
+        margin-bottom: 20px;
+      }
+      
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: bold;
+      }
+      
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+      }
+      
+      .form-group input:focus {
+        outline: none;
+        border-color: #f093fb;
+      }
+      
+      .start-btn {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.2em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+      }
+      
+      .start-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+      
+      .back-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+      
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 1);
+        transform: translateY(-1px);
+      }
+      
+      .teacher-info {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border-left: 4px solid #f093fb;
+      }
+      
+      .teacher-info p {
+        margin: 5px 0;
+        color: #666;
+        font-size: 0.9em;
+      }</style>
+</head>
+
+<body>
+    <a href="/" class="back-btn">← Geri Dön</a>
+    
+    <div class="container">
+        <div class="teacher-form">
+            <h1 class="form-title">Öğretmen Girişi</h1>
+            
+            <div class="teacher-info">
+                <p><strong>Öğretmen Paneli:</strong></p>
+                <p>• Öğrenci raporlarını görüntüleyebilirsiniz</p>
+                <p>• Sınıf geneli analiz yapabilirsiniz</p>
+                <p>• Öğrenci gelişimini takip edebilirsiniz</p>
+            </div>
+            
+            <form id="teacher-form">
+                <div class="form-group">
+                    <label for="teacher-name">Adınız:</label>
+                    <input type="text" id="teacher-name" name="teacher-name" placeholder="Adınızı giriniz" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="teacher-surname">Soyadınız:</label>
+                    <input type="text" id="teacher-surname" name="teacher-surname" placeholder="Soyadınızı giriniz" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="teacher-class">Sınıfınız:</label>
+                    <input type="text" id="teacher-class" name="teacher-class" placeholder="Örn: 5A, 6B" required>
+                </div>
+                
+                <button type="submit" class="start-btn">Öğretmen Paneline Giriş</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('teacher-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const teacherName = document.getElementById('teacher-name').value;
+            const teacherSurname = document.getElementById('teacher-surname').value;
+            const teacherClass = document.getElementById('teacher-class').value;
+            
+            // Öğretmen bilgilerini Python'a gönder (arkadaşın session'ına kaydetmesi için)
+            fetch('/teacher_login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    teacher_name: teacherName,
+                    teacher_surname: teacherSurname,
+                    class_name: teacherClass
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Öğretmen bilgilerini localStorage'a da kaydet
+                    localStorage.setItem('teacherName', teacherName);
+                    localStorage.setItem('teacherSurname', teacherSurname);
+                    localStorage.setItem('teacherClass', teacherClass);
+                    localStorage.setItem('userRole', 'teacher');
+                    
+                    // Session'a bilgileri kaydet
+                    sessionStorage.setItem('teacherName', teacherName);
+                    sessionStorage.setItem('teacherSurname', teacherSurname);
+                    sessionStorage.setItem('teacherClass', teacherClass);
+                    sessionStorage.setItem('userRole', 'teacher');
+                    
+                    // Öğretmen paneline yönlendir
+                    window.location.href = '/teacher-panel';
+                } else {
+                    alert('Bir hata oluştu: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Hata:', error);
+                alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+            });
+        });
+    </script>
+</body>
+</html> 
