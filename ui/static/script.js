@@ -1,3 +1,45 @@
+// Raporu session'a kaydetme fonksiyonu
+function saveReportToSession(reportData) {
+  const studentName = sessionStorage.getItem('studentName') || localStorage.getItem('studentName');
+  const studentSurname = sessionStorage.getItem('studentSurname') || localStorage.getItem('studentSurname');
+  const studentClass = sessionStorage.getItem('studentClass') || localStorage.getItem('studentClass');
+  
+  if (studentName && studentSurname && studentClass) {
+    // Mevcut raporları al
+    const existingReports = JSON.parse(sessionStorage.getItem('classReports') || '[]');
+    
+    // Yeni raporu ekle
+    const newReport = {
+      student_name: studentName,
+      student_surname: studentSurname,
+      class: studentClass,
+      answers: reportData.answers || [],
+      ai_report: reportData.report || 'Rapor oluşturulamadı',
+      created_at: new Date().toISOString()
+    };
+    
+    existingReports.push(newReport);
+    sessionStorage.setItem('classReports', JSON.stringify(existingReports));
+    
+    // Öğrenci listesine ekle
+    const existingStudents = JSON.parse(sessionStorage.getItem('classStudents') || '[]');
+    const studentExists = existingStudents.find(s => 
+      s.name === studentName && s.surname === studentSurname && s.class === studentClass
+    );
+    
+    if (!studentExists) {
+      existingStudents.push({
+        name: studentName,
+        surname: studentSurname,
+        class: studentClass
+      });
+      sessionStorage.setItem('classStudents', JSON.stringify(existingStudents));
+    }
+    
+    console.log('Rapor session\'a kaydedildi:', newReport);
+  }
+}
+
 const scenarios = {
   step1: {
     text: `Sabah uyandın. Yeni bir okul yılı başlıyor ve en iyi arkadaşın Ece ile buluşmak için sabırsızlanıyorsun. Kahvaltını yapıp hazırlanırken, aklında Ece ile konuşacağınız konular var. Okul servisine binmeden önce, annenin sana yardım etmek isteyip istemediğini sorarsın. Annen "Gerek yok, sen de artık büyüdün" der. Ne yaparsın?`,
@@ -54,6 +96,9 @@ const restartButton = document.getElementById("restart-button");
 let currentStep = "step1"
 let answers = [];
 
+// Global olarak erişilebilir yap
+window.collectedAnswers = answers;
+
 
 function showScenario(stepId){
   const step = scenarios[stepId];
@@ -68,6 +113,8 @@ function showScenario(stepId){
     button.textContent = option.text;
     button.onclick = () => {
       answers.push({ step: stepId , choice: option.value});
+      // Global değişkeni güncelle
+      window.collectedAnswers = answers;
       showScenario(step.next_step);
     };
     optionsContainer.appendChild(button);
@@ -87,6 +134,17 @@ function showReportPlaceholder() {
   scenarioText.textContent = "Rapor hazırlanıyor...";
   optionsContainer.innerHTML = "";
   reportContainer.style.display = "block";
+  
+  // Raporu session'a kaydet
+  setTimeout(() => {
+    const reportText = teacherReport.textContent;
+    if (reportText && reportText.trim() !== '') {
+      saveReportToSession({
+        report: reportText,
+        answers: window.collectedAnswers || []
+      });
+    }
+  }, 2000); // 2 saniye bekle
 }
 
 restartButton.onclick = () => {

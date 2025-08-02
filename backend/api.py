@@ -1,15 +1,20 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, session
 from flask_cors import CORS
 import google.generativeai as genai
 import os
 from dotenv import load_dotenv
+from database import init_database, save_report, get_class_reports, get_class_stats
 
 
 load_dotenv()
 
 
 app = Flask(__name__)
+app.secret_key = 'duygu_pusulasi_secret_key'
 CORS(app)
+
+# Veritabanını başlat
+init_database()
 
 
 collected_data = []
@@ -92,7 +97,85 @@ def create_ai_prompt(collected_data):
 
 @app.route('/')
 def index():
-    return render_template("arayuz.html")
+    return render_template("index.html")
+
+@app.route('/student')
+def student():
+    return render_template("student.html")
+
+@app.route('/start_game', methods=['POST'])
+def start_game():
+    """Öğrenci oyunu başlatır"""
+    data = request.get_json()
+    student_name = data.get('student_name')
+    student_surname = data.get('student_surname')
+    class_name = data.get('class_name')
+    
+    # Session'a öğrenci bilgilerini kaydet
+    session['student_name'] = student_name
+    session['student_surname'] = student_surname
+    session['class_name'] = class_name
+    session['user_role'] = 'student'
+    
+    return jsonify({'success': True, 'message': 'Oyun başlatıldı'})
+
+@app.route('/teacher')
+def teacher():
+    return render_template("teacher.html")
+
+@app.route('/teacher_login', methods=['POST'])
+def teacher_login():
+    """Öğretmen girişi"""
+    data = request.get_json()
+    teacher_name = data.get('teacher_name')
+    teacher_surname = data.get('teacher_surname')
+    class_name = data.get('class_name')
+    
+    # Session'a öğretmen bilgilerini kaydet
+    session['teacher_name'] = teacher_name
+    session['teacher_surname'] = teacher_surname
+    session['class_name'] = class_name
+    session['user_role'] = 'teacher'
+    
+    return jsonify({'success': True, 'message': 'Öğretmen girişi başarılı'})
+
+@app.route('/game')
+def game():
+    return render_template("game.html")
+
+@app.route('/teacher-panel')
+def teacher_panel():
+    return render_template("teacher-panel.html")
+
+@app.route('/reports')
+def reports():
+    return render_template("reports.html")
+
+@app.route('/api/class-reports')
+def api_class_reports():
+    """Sınıf raporlarını getir"""
+    if session.get('user_role') != 'teacher':
+        return jsonify({'error': 'Yetkisiz erişim'}), 403
+    
+    class_name = session.get('class_name')
+    if not class_name:
+        return jsonify({'error': 'Sınıf bilgisi bulunamadı'}), 400
+    
+    reports = get_class_reports(class_name)
+    return jsonify({'reports': reports})
+
+@app.route('/api/class-stats')
+def api_class_stats():
+    """Sınıf istatistiklerini getir"""
+    if session.get('user_role') != 'teacher':
+        return jsonify({'error': 'Yetkisiz erişim'}), 403
+    
+    class_name = session.get('class_name')
+    if not class_name:
+        return jsonify({'error': 'Sınıf bilgisi bulunamadı'}), 400
+    
+    stats = get_class_stats(class_name)
+    return jsonify(stats)
 
 @app.route('/next_step', methods=['POST'])
 def next_step():
@@ -120,6 +203,16 @@ def next_step():
             response = model.generate_content(prompt)
             ai_report = response.text if response.text else "Rapor alınamadı."
             print("AI Raporu:\n", ai_report)
+
+            # Raporu veritabanına kaydet
+            if session.get('user_role') == 'student':
+                student_name = session.get('student_name')
+                student_surname = session.get('student_surname')
+                class_name = session.get('class_name')
+                
+                if student_name and student_surname and class_name:
+                    save_report(student_name, student_surname, class_name, collected_data, ai_report)
+                    print(f"Rapor kaydedildi: {student_name} {student_surname} - {class_name}")
 
             collected_data = [] 
             return jsonify({
