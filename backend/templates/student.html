@@ -116,20 +116,20 @@
         <div class="student-form">
             <h1 class="form-title">Öğrenci Girişi</h1>
             
-            <form id="student-form">
+            <form id="student-form" method="POST" action="/start_game">
                 <div class="form-group">
-                    <label for="student-name">Adınız:</label>
-                    <input type="text" id="student-name" name="student-name" placeholder="Adınızı giriniz" required>
+                    <label for="name">Adınız:</label>
+                    <input type="text" id="name" name="name" placeholder="Adınızı giriniz" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="student-surname">Soyadınız:</label>
-                    <input type="text" id="student-surname" name="student-surname" placeholder="Soyadınızı giriniz" required>
+                    <label for="surname">Soyadınız:</label>
+                    <input type="text" id="surname" name="surname" placeholder="Soyadınızı giriniz" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="student-class">Sınıfınız:</label>
-                    <input type="text" id="student-class" name="student-class" placeholder="Örn: 5A, 6B" required>
+                    <label for="grade">Sınıfınız:</label>
+                    <input type="text" id="grade" name="grade" placeholder="Örn: 5A, 6B" required>
                 </div>
                 
                 <button type="submit" class="start-btn">Oyunu Başlat</button>
@@ -138,51 +138,11 @@
     </div>
 
     <script>
-        document.getElementById('student-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const studentName = document.getElementById('student-name').value;
-            const studentSurname = document.getElementById('student-surname').value;
-            const studentClass = document.getElementById('student-class').value;
-            
-            // Öğrenci bilgilerini Python'a gönder (arkadaşın session'ına kaydetmesi için)
-            fetch('/start_game', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    student_name: studentName,
-                    student_surname: studentSurname,
-                    class_name: studentClass
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Öğrenci bilgilerini localStorage'a da kaydet
-                    localStorage.setItem('studentName', studentName);
-                    localStorage.setItem('studentSurname', studentSurname);
-                    localStorage.setItem('studentClass', studentClass);
-                    localStorage.setItem('userRole', 'student');
-                    
-                    // Session'a bilgileri kaydet
-                    sessionStorage.setItem('studentName', studentName);
-                    sessionStorage.setItem('studentSurname', studentSurname);
-                    sessionStorage.setItem('studentClass', studentClass);
-                    sessionStorage.setItem('userRole', 'student');
-                    
-                    // Oyun sayfasına yönlendir
-                    window.location.href = '/game';
-                } else {
-                    alert('Bir hata oluştu: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Hata:', error);
-                alert('Bir hata oluştu. Lütfen tekrar deneyin.');
-            });
-        });
+        // Hata mesajını göster (eğer varsa)
+        var errorMessage = "{{ error if error else '' }}";
+        if (errorMessage) {
+            alert(errorMessage);
+        }
     </script>
 </body>
 </html> 

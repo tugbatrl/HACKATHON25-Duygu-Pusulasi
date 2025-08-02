@@ -367,37 +367,41 @@
     <script src="../../ui/static/script.js"></script>
     <script>
         // Sayfa yüklendiğinde kullanıcı bilgilerini göster
-    document.addEventListener('DOMContentLoaded', function() {
-        const userRole = sessionStorage.getItem('userRole');
-        const userName = document.getElementById('user-name');
-        const userClass = document.getElementById('user-class');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Öğrenci bilgilerini API'den al
+            loadStudentInfo();
+        });
         
-        if (userRole === 'student') {
-            const studentName = sessionStorage.getItem('studentName');
-            const studentSurname = sessionStorage.getItem('studentSurname');
-            const studentClass = sessionStorage.getItem('studentClass');
-            
-            userName.textContent = `Öğrenci: ${studentName} ${studentSurname}`;
-            userClass.textContent = `Sınıf: ${studentClass}`;
-        } else if (userRole === 'teacher') {
-            const teacherName = sessionStorage.getItem('teacherName');
-            const teacherSurname = sessionStorage.getItem('teacherSurname');
-            const teacherClass = sessionStorage.getItem('teacherClass');
-            
-            userName.textContent = `Öğretmen: ${teacherName} ${teacherSurname}`;
-            userClass.textContent = `Sınıf: ${teacherClass}`;
+        function loadStudentInfo() {
+            // Öğrenci bilgilerini session'dan al
+            fetch('/api/student-info')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const userName = document.getElementById('user-name');
+                        const userClass = document.getElementById('user-class');
+                        
+                        userName.textContent = `Öğrenci: ${data.name} ${data.surname}`;
+                        userClass.textContent = `Sınıf: ${data.grade}`;
+                    } else {
+                        // Eğer bilgi yoksa ana sayfaya yönlendir
+                        window.location.href = '/';
+                    }
+                })
+                .catch(error => {
+                    console.error('Öğrenci bilgisi yükleme hatası:', error);
+                    window.location.href = '/';
+                });
         }
-    });
-    
-    // Oyunu başlat butonuna tıklandığında
-    document.getElementById('start-game-btn').addEventListener('click', function() {
-        document.getElementById('screen-login').style.display = 'none';
-        document.getElementById('scenario-content').style.display = 'block';
-        // Oyunu başlat
-        if (typeof loadNextStep === 'function') {
+        
+        // Oyunu başlat butonuna tıklandığında
+        document.getElementById('start-game-btn').addEventListener('click', function() {
+            document.getElementById('screen-login').style.display = 'none';
+            document.getElementById('scenario-content').style.display = 'block';
+            // Oyunu başlat
             loadNextStep();
         }
-    });
+    );
     </script>
 </body>
 </html> 

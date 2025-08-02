@@ -127,20 +127,29 @@
     <div class="container">
         <div class="teacher-form">
             <h1 class="form-title">Öğretmen Girişi</h1>
-            <form id="teacher-form">
+            
+            <div class="teacher-info">
+                <p><strong>Öğretmen Paneli:</strong></p>
+                <p>• Öğrenci raporlarını görüntüleyebilirsiniz</p>
+                <p>• Sınıf bazında analiz yapabilirsiniz</p>
+                <p>• Öğrenci gelişimini takip edebilirsiniz</p>
+                <p>• Detaylı raporları inceleyebilirsiniz</p>
+            </div>
+            
+            <form id="teacher-form" method="POST" action="/teacher_login">
                 <div class="form-group">
-                    <label for="teacher-name">Adınız:</label>
-                    <input type="text" id="teacher-name" name="teacher-name" placeholder="Adınızı giriniz" required>
+                    <label for="name">Adınız:</label>
+                    <input type="text" id="name" name="name" placeholder="Adınızı giriniz" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="teacher-surname">Soyadınız:</label>
-                    <input type="text" id="teacher-surname" name="teacher-surname" placeholder="Soyadınızı giriniz" required>
+                    <label for="surname">Soyadınız:</label>
+                    <input type="text" id="surname" name="surname" placeholder="Soyadınızı giriniz" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="teacher-class">Sınıfınız:</label>
-                    <input type="text" id="teacher-class" name="teacher-class" placeholder="Örn: 5A, 6B" required>
+                    <label for="class_name">Sınıfınız:</label>
+                    <input type="text" id="class_name" name="class_name" placeholder="Örn: 5A, 6B" required>
                 </div>
                 
                 <button type="submit" class="start-btn">Öğretmen Paneline Giriş</button>
@@ -149,51 +158,11 @@
     </div>
 
     <script>
-        document.getElementById('teacher-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const teacherName = document.getElementById('teacher-name').value;
-            const teacherSurname = document.getElementById('teacher-surname').value;
-            const teacherClass = document.getElementById('teacher-class').value;
-            
-            // Öğretmen bilgilerini Python'a gönder (arkadaşın session'ına kaydetmesi için)
-            fetch('/teacher_login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    teacher_name: teacherName,
-                    teacher_surname: teacherSurname,
-                    class_name: teacherClass
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Öğretmen bilgilerini localStorage'a da kaydet
-                    localStorage.setItem('teacherName', teacherName);
-                    localStorage.setItem('teacherSurname', teacherSurname);
-                    localStorage.setItem('teacherClass', teacherClass);
-                    localStorage.setItem('userRole', 'teacher');
-                    
-                    // Session'a bilgileri kaydet
-                    sessionStorage.setItem('teacherName', teacherName);
-                    sessionStorage.setItem('teacherSurname', teacherSurname);
-                    sessionStorage.setItem('teacherClass', teacherClass);
-                    sessionStorage.setItem('userRole', 'teacher');
-                    
-                    // Öğretmen paneline yönlendir
-                    window.location.href = '/teacher-panel';
-                } else {
-                    alert('Bir hata oluştu: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Hata:', error);
-                alert('Bir hata oluştu. Lütfen tekrar deneyin.');
-            });
-        });
+        // Hata mesajını göster (eğer varsa)
+        var errorMessage = "{{ error if error else '' }}";
+        if (errorMessage) {
+            alert(errorMessage);
+        }
     </script>
 </body>
 </html> 

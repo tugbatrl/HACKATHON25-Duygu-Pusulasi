@@ -1,88 +1,83 @@
-// Raporu session'a kaydetme fonksiyonu
+// 
 function saveReportToSession(reportData) {
-  const studentName = sessionStorage.getItem('studentName') || localStorage.getItem('studentName');
-  const studentSurname = sessionStorage.getItem('studentSurname') || localStorage.getItem('studentSurname');
-  const studentClass = sessionStorage.getItem('studentClass') || localStorage.getItem('studentClass');
-  
-  if (studentName && studentSurname && studentClass) {
-    // Mevcut raporları al
-    const existingReports = JSON.parse(sessionStorage.getItem('classReports') || '[]');
-    
-    // Yeni raporu ekle
-    const newReport = {
-      student_name: studentName,
-      student_surname: studentSurname,
-      class: studentClass,
-      answers: reportData.answers || [],
-      ai_report: reportData.report || 'Rapor oluşturulamadı',
-      created_at: new Date().toISOString()
-    };
-    
-    existingReports.push(newReport);
-    sessionStorage.setItem('classReports', JSON.stringify(existingReports));
-    
-    // Öğrenci listesine ekle
-    const existingStudents = JSON.parse(sessionStorage.getItem('classStudents') || '[]');
-    const studentExists = existingStudents.find(s => 
-      s.name === studentName && s.surname === studentSurname && s.class === studentClass
-    );
-    
-    if (!studentExists) {
-      existingStudents.push({
-        name: studentName,
-        surname: studentSurname,
-        class: studentClass
-      });
-      sessionStorage.setItem('classStudents', JSON.stringify(existingStudents));
-    }
-    
-    console.log('Rapor session\'a kaydedildi:', newReport);
-  }
+
+  console.log('Rapor API\'ye gönderildi ve kaydedildi:', reportData);
 }
 
-const scenarios = {
-  step1: {
-    text: `Sabah uyandın. Yeni bir okul yılı başlıyor ve en iyi arkadaşın Ece ile buluşmak için sabırsızlanıyorsun. Kahvaltını yapıp hazırlanırken, aklında Ece ile konuşacağınız konular var. Okul servisine binmeden önce, annenin sana yardım etmek isteyip istemediğini sorarsın. Annen "Gerek yok, sen de artık büyüdün" der. Ne yaparsın?`,
-    options: [
-      { text: `"Peki o zaman" deyip hemen yola çıkarsın.`, value: "A" },
-      { text: `"Belki bir dahaki sefere" diyerek gülümser ve yola çıkarsın.`, value: "B" },
-      { text: `"O zaman kahvaltı masasındaki bardakları toplayayım" der ve annene yardım edersin.`, value: "C" }
-    ],
-    next_step: "step2"
-  },
-  step2: {
-    text: `Okul servisiyle okula geldin ve Ece'yle buluştun. Sınıfa girdiğinizde, en arka sıraya oturdunuz. O sırada sınıfa yeni bir öğrenci girdi. Adı Ali. Biraz çekingen duruyor ve kimseyle konuşmuyor. Öğretmen, Ali'yi tek başına bir sıraya oturttu. Ali'nin yalnız olduğunu görüyorsun. Ece sana "Hadi teneffüste bahçeye çıkalım" der. Ne yaparsın?`,
-    options: [
-      { text: `"Önce şu yeni çocukla tanışalım" der ve Ali'ye gülümsersin.`, value: "A" },
-      { text: `Ece'yle beraber bahçeye çıkarsınız, Ali'yi kendi haline bırakırsınız.`, value: "B" },
-      { text: `Öğretmene gidip "Ali'nin yanına oturabilir miyim?" diye sorarsın.`, value: "C" }
-    ],
-    next_step: "step3"
-  },
-  step3: {
-    text: `Öğle arası oldu ve sen sıranın başında Ece'yi kantinden bekliyorsun. O sırada sınıfın zorba çocuğu Can, yanına geldi. "Ne kadar da komik bir çanta, sen bunu nereden buldun?" dedi. Sınıftaki birkaç kişi de ona güldü. Can, seninle alay ederken, Ece de kantinden geliyordu. Göz göze geldiniz. Ne yaparsın?`,
-    options: [
-      { text: `"Bunun komik bir yanı yok, kimsenin eşyasıyla dalga geçemezsin" der ve Can'a karşı durursun.`, value: "A" },
-      { text: `Can'ı duymazdan gelir, yere düşen kitaplarını toplar ve ağlamaklı bir şekilde Ece'ye sarılırsın.`, value: "B" },
-      { text: `Can'a karşılık verir ve "Senin çantan daha kötü" diyerek tartışmaya girersin.`, value: "C" }
-    ],
-    next_step: "step4"
-  },
-  step4: {
-    text: `Zil çaldı ve sınıfa girdiniz. Can ve arkadaşları, artık seninle değil, Ali ile uğraşmaya başladı. Her teneffüs Ali'nin eşyalarını saklıyor, onunla alay ediyorlardı. Son derste, Ali'nin sıranın altında ağladığını gördün. Ece, "Sence öğretmene söylemeli miyiz?" diye sordu. Ne yaparsın?`,
-    options: [
-      { text: `"Kesinlikle! Birinin yardım etmesi gerekiyor" der ve öğretmene gidersin.`, value: "A" },
-      { text: `"Bize de zorbalık yapar diye korkuyorum" der ve kararsız kalırsın.`, value: "B" },
-      { text: `Ali'nin yanına gidip onu teselli etmeye çalışır, sonra da durumu kendi aranızda çözmeye çalışırsınız.`, value: "C" }
-    ],
-    next_step: "end"
-  },
-  end: {
-     text: ``,
-    options: [],
-    next_step: "report"
-  }
-};
+let scenarios = {};
+
+
+function loadScenarios() {
+  
+  fetch('/api/student-progress')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(progressData => {
+     
+      return fetch('/api/scenarios')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(scenariosData => {
+          return { progress: progressData, scenarios: scenariosData };
+        });
+    })
+    .then(data => {
+      if (data.scenarios.error) {
+        console.error('Senaryo yükleme hatası:', data.scenarios.error);
+        scenarioText.textContent = 'Senaryolar yüklenirken bir hata oluştu. Lütfen sayfayı yenileyin.';
+        return;
+      }
+      
+      // API'den gelen senaryoları JavaScript formatına çevir
+      scenarios = {};
+      Object.keys(data.scenarios).forEach(stepKey => {
+        const step = data.scenarios[stepKey];
+        scenarios[stepKey] = {
+          text: step.question,
+          options: Object.keys(step.options).map(key => ({
+            text: step.options[key],
+            value: key
+          })),
+          next_step: stepKey === 'step4' ? 'end' : `step${parseInt(stepKey.replace('step', '')) + 1}`
+        };
+      });
+      
+      
+      scenarios.end = {
+        text: 'Senaryo tamamlandı! Şimdi raporunu oluşturuyoruz...',
+        options: [],
+        next_step: 'report'
+      };
+      
+      
+      if (data.progress.progress) {
+        answers = [];
+        Object.keys(data.progress.progress).forEach(stepKey => {
+          answers.push({ 
+            step: stepKey, 
+            choice: data.progress.progress[stepKey] 
+          });
+        });
+        window.collectedAnswers = answers;
+      }
+      
+      
+      const currentStep = data.progress.current_step || 'step1';
+      showScenario(currentStep);
+    })
+    .catch(error => {
+      console.error('Yükleme hatası:', error);
+      scenarioText.textContent = 'Veriler yüklenirken bir hata oluştu. Lütfen sayfayı yenileyin.';
+    });
+}
 
 
 const scenarioText = document.getElementById("scenario-text");
@@ -98,12 +93,20 @@ const scenarioBox = document.getElementById('scenario-box');
 let currentStep = "step1"
 let answers = [];
 
-// Global olarak erişilebilir yap
+
 window.collectedAnswers = answers;
 
 
 function showScenario(stepId){
   const step = scenarios[stepId];
+  
+ 
+  if (!step) {
+    console.error('Senaryo bulunamadı:', stepId);
+    scenarioText.textContent = 'Senaryo yüklenirken bir hata oluştu. Lütfen sayfayı yenileyin.';
+    return;
+  }
+  
   currentStep = stepId;
 
   scenarioText.textContent = step.text;
@@ -114,10 +117,8 @@ function showScenario(stepId){
     const button = document.createElement("button");
     button.textContent = option.text;
     button.onclick = () => {
-      answers.push({ step: stepId , choice: option.value});
-      // Global değişkeni güncelle
-      window.collectedAnswers = answers;
-      showScenario(step.next_step);
+      
+      saveAnswerAndContinue(stepId, option.value);
     };
     optionsContainer.appendChild(button);
   });
@@ -128,34 +129,113 @@ function showScenario(stepId){
     showReportPlaceholder();
 
     restartButton.style.display = "block";
-
   }
+}
+
+function saveAnswerAndContinue(stepId, choice) {
+ 
+  fetch('/save-answer', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      step: stepId,
+      answer: choice
+    })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    if (data.status === 'success') {
+      
+      answers.push({ step: stepId, choice: choice });
+      window.collectedAnswers = answers;
+      
+     
+      const step = scenarios[stepId];
+      if (step && step.next_step) {
+        showScenario(step.next_step);
+      }
+    } else {
+      alert(data.message || 'Cevap kaydedilirken bir hata oluştu.');
+    }
+  })
+  .catch(error => {
+    console.error('Cevap kaydetme hatası:', error);
+    alert('Cevap kaydedilirken bir hata oluştu. Lütfen tekrar deneyin.');
+  });
 }
 
 function showReportPlaceholder() {
   optionsContainer.innerHTML = "";
   reportContainer.style.display = "block";
   
-  // Raporu session'a kaydet
-  setTimeout(() => {
-    const reportText = teacherReport.textContent;
-    if (reportText && reportText.trim() !== '') {
-      saveReportToSession({
-        report: reportText,
-        answers: window.collectedAnswers || []
-      });
+  
+  generateReport();
+}
+
+function generateReport() {
+  const answers = window.collectedAnswers || [];
+  
+  
+  const progress = {};
+  answers.forEach(answer => {
+    progress[answer.step] = answer.choice;
+  });
+  
+  fetch('/generate-report', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      progress: progress
+    })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-  }, 2000); // 2 saniye bekle
+    return response.json();
+  })
+  .then(data => {
+    if (data.status === 'success') {
+     
+      teacherReport.textContent = data.report_text || 'Rapor oluşturuldu!';
+      
+      
+      saveReportToSession({
+        report: data.report_text || 'Rapor oluşturuldu!',
+        answers: answers
+      });
+    } else {
+      teacherReport.textContent = data.message || 'Rapor oluşturulurken bir hata oluştu.';
+    }
+  })
+  .catch(error => {
+    console.error('Rapor oluşturma hatası:', error);
+    teacherReport.textContent = 'Rapor oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.';
+  });
+}
+
+
+function loadNextStep() {
+ 
+  loadScenarios();
 }
 
 restartButton.onclick = () => {
   answers = [];
   currentStep = "step1"
   reportContainer.style.display = "none";
-  showScenario(currentStep);
+  
+  loadScenarios();
 };
-
-showScenario(currentStep);
 
 
 
