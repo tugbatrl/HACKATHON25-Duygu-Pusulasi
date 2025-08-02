@@ -78,7 +78,7 @@ const scenarios = {
     next_step: "end"
   },
   end: {
-    text: `Senaryo tamamlandı! Şimdi raporunu oluşturuyoruz...`,
+     text: ``,
     options: [],
     next_step: "report"
   }
@@ -91,6 +91,8 @@ const reportContainer = document.getElementById("report-container");
 const teacherReport = document.getElementById("teacher-report-content");
 const restartButton = document.getElementById("restart-button");
 
+
+const scenarioBox = document.getElementById('scenario-box');
 
 
 let currentStep = "step1"
@@ -131,7 +133,6 @@ function showScenario(stepId){
 }
 
 function showReportPlaceholder() {
-  scenarioText.textContent = "Rapor hazırlanıyor...";
   optionsContainer.innerHTML = "";
   reportContainer.style.display = "block";
   

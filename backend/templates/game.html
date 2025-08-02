@@ -5,21 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Duygu Pusulası - Oyun</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: url(../../ui/static/images/arkaplan2.jpg) no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            transition: all 0.3s ease-in-out;
+            height: 600px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+        
+        .scenario-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
         .user-info {
             position: absolute;
             top: 20px;
             right: 20px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             font-size: 0.9em;
+            border: 1px solid rgba(102, 126, 234, 0.1);
         }
         
         .user-info h3 {
             margin: 0 0 10px 0;
             color: #333;
             font-size: 1.1em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .user-info p {
@@ -31,18 +86,252 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 12px;
             transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
         
         .back-btn:hover {
-            background: rgba(255, 255, 255, 1);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
+        
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+        
+        p {
+            color: #666;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .scenario-text {
+            font-size: 1.2em;
+            color: #333;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 30px;
+        }
+        #scenario-text:empty {
+            display: none;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            min-width: 180px;
+            margin: 10px;
+            
+        }
+        
+        #start-game-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 250px;
+            height: 60px;
+            align-items: center;
+        }
+        
+        #start-game-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .option-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+        }
+        
+        .option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+        }
+        
+        .feedback {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 4px solid #f093fb;
+            font-size: 1.1em;
+            color: #333;
+        }
+        
+        #restart-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 200px;
+            height: 50px;
+        }
+        
+        #restart-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .screen {
+            display: none;
+            text-align: center;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        #report-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            align-items: center;
+            justify-content: center;
+            display: flex;
+        }
+        
+        #teacher-report-content {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: left;
+            border-left: 4px solid #667eea;
+        }
+        .scenario-text {
+    font-size: 1.3em;
+    font-weight: 500;
+    color: #333;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(245, 245, 255, 0.9));
+    padding: 25px 30px;
+    border-radius: 20px;
+    border-left: 6px solid #764ba2;
+    box-shadow: 0 6px 20px rgba(118, 75, 162, 0.2);
+    margin-bottom: 35px;
+    max-width: 550px;
+    line-height: 1.7;
+    transition: 0.3s ease-in-out;
+}
+
+.scenario-text:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 30px rgba(118, 75, 162, 0.3);
+}
+
+/* Options düzenlemesi */
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+.option-btn {
+    background: linear-gradient(135deg, #ffe0ec, #f093fb);
+    color: #4a0033;
+    padding: 18px 25px;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    box-shadow: 0 6px 16px rgba(245, 87, 108, 0.25);
+}
+
+.option-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(245, 87, 108, 0.4);
+}
+
+/* feedback alanı */
+.feedback {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 22px 30px;
+    border-radius: 18px;
+    margin-top: 25px;
+    border-left: 6px solid #f093fb;
+    font-size: 1.15em;
+    color: #4a0033;
+    box-shadow: 0 4px 16px rgba(240, 147, 251, 0.2);
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+/* Oyunu Başlat Butonu */
+#start-game-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    width: 260px;
+    height: 65px;
+    font-size: 1.2em;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    transition: 0.3s ease;
+}
+
+#start-game-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+}
+
+
+
     </style>
 </head>
 
@@ -58,15 +347,13 @@
     <div class="container">
         <div id="screen-login" class="screen active">
             <h1>Duygu Pusulası</h1>
-            <p>Oyun başlıyor...</p>
+            <p>Başlamak için tıklayın</p>
             <button id="start-game-btn" class="btn">Oyunu Başlat</button>
         </div>
         
         <div id="scenario-content" class="screen" style="display: none;">
             <p class="scenario-text" id="scenario-text">Oyun yükleniyor...</p>
             <div class="options" id="options-container">
-            </div>
-            <div class="feedback" id="feedback-text">
             </div>
         </div>
 
@@ -80,35 +367,37 @@
     <script src="../../ui/static/script.js"></script>
     <script>
         // Sayfa yüklendiğinde kullanıcı bilgilerini göster
-        document.addEventListener('DOMContentLoaded', function() {
-            const userRole = localStorage.getItem('userRole');
-            const userName = document.getElementById('user-name');
-            const userClass = document.getElementById('user-class');
-            
-            if (userRole === 'student') {
-                const studentName = localStorage.getItem('studentName');
-                const studentSurname = localStorage.getItem('studentSurname');
-                const studentClass = localStorage.getItem('studentClass');
-                
-                userName.textContent = `Öğrenci: ${studentName} ${studentSurname}`;
-                userClass.textContent = `Sınıf: ${studentClass}`;
-            } else if (userRole === 'teacher') {
-                const teacherName = localStorage.getItem('teacherName');
-                const teacherSurname = localStorage.getItem('teacherSurname');
-                const teacherClass = localStorage.getItem('teacherClass');
-                
-                userName.textContent = `Öğretmen: ${teacherName} ${teacherSurname}`;
-                userClass.textContent = `Sınıf: ${teacherClass}`;
-            }
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+        const userRole = sessionStorage.getItem('userRole');
+        const userName = document.getElementById('user-name');
+        const userClass = document.getElementById('user-class');
         
-        // Oyunu başlat butonuna tıklandığında
-        document.getElementById('start-game-btn').addEventListener('click', function() {
-            document.getElementById('screen-login').style.display = 'none';
-            document.getElementById('scenario-content').style.display = 'block';
-            // Oyunu başlat
+        if (userRole === 'student') {
+            const studentName = sessionStorage.getItem('studentName');
+            const studentSurname = sessionStorage.getItem('studentSurname');
+            const studentClass = sessionStorage.getItem('studentClass');
+            
+            userName.textContent = `Öğrenci: ${studentName} ${studentSurname}`;
+            userClass.textContent = `Sınıf: ${studentClass}`;
+        } else if (userRole === 'teacher') {
+            const teacherName = sessionStorage.getItem('teacherName');
+            const teacherSurname = sessionStorage.getItem('teacherSurname');
+            const teacherClass = sessionStorage.getItem('teacherClass');
+            
+            userName.textContent = `Öğretmen: ${teacherName} ${teacherSurname}`;
+            userClass.textContent = `Sınıf: ${teacherClass}`;
+        }
+    });
+    
+    // Oyunu başlat butonuna tıklandığında
+    document.getElementById('start-game-btn').addEventListener('click', function() {
+        document.getElementById('screen-login').style.display = 'none';
+        document.getElementById('scenario-content').style.display = 'block';
+        // Oyunu başlat
+        if (typeof loadNextStep === 'function') {
             loadNextStep();
-        });
+        }
+    });
     </script>
 </body>
 </html> 
