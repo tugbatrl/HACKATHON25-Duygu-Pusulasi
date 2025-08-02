@@ -4,24 +4,23 @@ import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 
-# Ortam değişkenlerini yükle (.env dosyasından)
+
 load_dotenv()
 
-# Flask uygulaması
+
 app = Flask(__name__)
 CORS(app)
 
-# Kullanıcı verilerini geçici olarak saklayacağımız global liste
+
 collected_data = []
 
-# Güvenli şekilde API anahtarını al
+
 API_KEY = os.getenv("GOOGLE_API_KEY")
 
-# Gemini modelini ayarla
+
 genai.configure(api_key=API_KEY)
 model = genai.GenerativeModel('gemini-pro')
 
-# Senaryo adımları
 SCENARIO = {
     "step1": {
         "text": """Sabah uyandın. Yeni bir okul yılı başlıyor ve...""",
@@ -66,7 +65,6 @@ SCENARIO = {
     }
 }
 
-# Prompt oluşturma
 def create_ai_prompt(collected_data):
     prompt_parts = [
         "Aşağıdaki senaryoda 9-12 yaşındaki bir çocuğun verdiği yanıtlar var.",
