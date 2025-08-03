@@ -1,0 +1,130 @@
+Harika bir karar! "Yapay zeka ile sosyal beceriler ve duygusal zeka geliştiren interaktif rol yapma platformu" projesi, hackathon ortamında hem ilgi çekici hem de uygulanabilir potansiyele sahip. Özellikle 13 günlük bir süreye odaklanırken, projenin tamamını bitirmek yerine, çekirdek bir MVP (Minimum Viable Product - Minimum Uygulanabilir Ürün) geliştirmeye odaklanmak en akıllıca yaklaşım olacaktır.
+
+İşte 13 günlük hackathon süresi için "Duygu Macerası" veya "Sosyal Keşifler Diyarı" projeniz için odaklanılmış ve hızlandırılmış yol haritası:
+
+Proje Adı: Duygu Macerası (Hackathon Sürümü)
+Hackathon Amacı:
+13 gün içinde, çocukların/gençlerin temel bir sosyal senaryo içinde YZ ile etkileşime girerek duygu tanıma ve sosyal beceri geliştirmeye yönelik çekirdek bir işlevselliği gösteren çalışan bir prototip sunmak.
+
+Odak Noktası:
+Tek bir ana senaryo: Karmaşık bir platform yerine, sadece bir veya iki sosyal senaryo üzerinde tam işlevsellik sağlamak.
+
+Metin tabanlı etkileşim: Ses veya görsel tanıma gibi daha karmaşık YZ modellerini şimdilik dışarıda bırakıp, NLP odaklı metin tabanlı etkileşime yoğunlaşmak.
+
+Basit YZ geri bildirimi: Kullanıcının seçimlerine göre temel seviyede geri bildirim verebilmek.
+
+Kullanıcı deneyimi (UX) önceliği: Prototipin akıcı ve anlaşılır olması.
+
+Hızlandırılmış 13 Günlük Yol Haritası:
+Gün 1-2: Hızlı Planlama ve Temel Tasarım (Fikir Netleştirme)
+Hedef Kitle ve Ana Odak:
+
+Hızlıca karar verin: Örneğin, 9-12 yaş aralığı çocuklara odaklanın.
+
+Tek bir temel sosyal beceri seçin: Örneğin, "Empati Kurma" veya "Çatışma Çözme". Bu, senaryo tasarımınızı daraltacaktır.
+
+Basit Senaryo Seçimi:
+
+Odaklandığınız beceriye uygun, basit ve tek bir ana senaryo belirleyin.
+
+Örn: "Okulda yeni gelen bir arkadaşla tanışma ve ona yardımcı olma" veya "İki arkadaşın oyuncağı paylaşma konusunda yaşadığı küçük bir anlaşmazlık."
+
+Bu senaryoda 3-5 ana diyalog adımı ve her adım için 2-3 olası kullanıcı seçeneği belirleyin.
+
+YZ karakteri ve kişiliği: Kim olacak? (Örn: Sınıf arkadaşı, oyun arkadaşı). Basit bir isim ve birkaç temel özellik belirleyin.
+
+Teknoloji Seçimi (Hızlı Karar):
+
+Arka Uç (Backend): Python (Flask/Django veya FastAPI) - hızlı prototipleme için uygun.
+
+Ön Uç (Frontend): HTML, CSS, JavaScript (Basit bir arayüz için yeterli).
+
+YZ (NLP):
+
+Hazır API kullanma: Google Cloud Natural Language API, IBM Watson NLU, OpenAI'nin GPT-3.5/GPT-4 API'si (eğer erişiminiz ve uygun bütçeniz varsa). Bu, en hızlı yol olacaktır.
+
+Basit kural tabanlı sistem: Eğer API kullanımı zor gelirse, "if-else" mantığına dayalı, anahtar kelime eşleştiren basit bir NLP sistemi kurabilirsiniz (daha az esnek ama daha hızlı).
+
+Veritabanı (Çok Basit): SQLite (lokal ve hızlı) veya hiç veritabanı kullanmayıp, senaryo ve diyalogları kod içinde tutmak.
+
+Basit Arayüz Eskizi: Kağıt üzerinde veya basit bir araçla (Figma, Miro) uygulamanın temel akışını ve ekranlarını çizin. (Giriş, senaryo metni, seçenekler, YZ cevabı, geri bildirim).
+
+Gün 3-5: Çekirdek Yapının Kodlanması (En Hızlı Şekilde)
+Temel Web Uygulaması Çatısı:
+
+Python (Flask/FastAPI) ile basit bir web sunucusu kurun.
+
+HTML, CSS, JS ile temel bir web sayfası oluşturun. (Senaryo metninin görüntüleneceği alan, seçenek düğmeleri, YZ cevabı alanı, geri bildirim alanı).
+
+Senaryo Akış Motoru (Basit):
+
+Senaryoyu ve diyalogları kod içinde veya basit bir JSON dosyasında tutun.
+
+Kullanıcının seçimine göre senaryonun bir sonraki adımına ilerlemesini sağlayan bir fonksiyon yazın.
+
+Kullanıcı Giriş/Çıkış Mekanizması:
+
+Kullanıcı seçeneklerine tıklama veya metin girdisi alımı.
+
+YZ'nin cevabını ve geri bildirimi kullanıcıya gösterme.
+
+Gün 6-9: YZ Entegrasyonu ve İlk Geri Bildirim Mekanizması
+NLP Entegrasyonu:
+
+API Yöntemi (Önerilen): Seçtiğiniz NLP API'sini (GPT-3.5/4 veya Google NLU gibi) uygulamanıza entegre edin. Kullanıcının seçtiği cevabı API'ye gönderin ve YZ karakterinin cevabını alın.
+
+API'ye göndereceğiniz prompt'lar çok önemli olacak. Örn: "Sen şu karakterisin [karakter tanımı]. Bu senaryoda [senaryo özeti], kullanıcı [kullanıcı seçimi] dedi. Buna empatik bir şekilde nasıl karşılık verirsin? Yanıtın kısa ve çocuklara uygun olsun."
+
+Kural Tabanlı Yöntem (Alternatif): Kullanıcının seçimindeki anahtar kelimeleri (örneğin "üzgün", "yardım", "oyuncak") kontrol ederek YZ'nin vereceği cevabı veya bir sonraki senaryo adımını belirleyin. Bu, daha sınırlı ama daha hızlı bir çözüm sunar.
+
+Basit Geri Bildirim Mekanizması:
+
+Kullanıcının seçimi ve YZ'nin tepkisine göre önceden tanımlanmış basit geri bildirimler verin.
+
+Örn: Eğer kullanıcı empatik bir seçenek seçerse: "Harika bir seçim! Arkadaşın bu durumda kendini daha iyi hissetti."
+
+Eğer daha az uygun bir seçimse: "Bu seçimle arkadaşın biraz üzülmüş olabilir. Belki bir dahaki sefere şöyle söyleyebilirsin..." (somut bir alternatif önerisi).
+
+Bu geri bildirimleri YZ üretimi yerine, senaryo adımlarına elle atayarak başlayabilirsiniz. Zaman kalırsa YZ'ye ürettirirsiniz.
+
+UI/UX İyileştirmeleri (Basit):
+
+Yazı tiplerini, renkleri ve düğme stillerini çocuk dostu hale getirin.
+
+Metinlerin kolay okunabilir olduğundan emin olun.
+
+Belki basit bir karakter avatarı ekleyebilirsiniz (hazır bir ikon veya çizim).
+
+Gün 10-12: Test, İterasyon ve Sunum Hazırlığı
+Kapsamlı Test:
+
+Prototipi farklı senaryo yollarında test edin.
+
+Beklenmeyen girdilere YZ'nin nasıl tepki verdiğini gözlemleyin.
+
+Hataları ayıklayın ve senaryo akışını iyileştirin.
+
+Özellikle geri bildirimlerin anlaşılır, yapıcı ve çocuklara uygun olduğundan emin olun.
+
+Geri Bildirim Toplama (Mini):
+
+Mümkünse, hedef kitlenizden (çocuklar veya bu yaş grubunda çocuğu olan ebeveynler) küçük bir grupla hızlı bir "deneyimleme" seansı yapın. Onların tepkileri ve geri bildirimleri sunumunuz için değerli olacaktır.
+
+Sunum Hazırlığı:
+
+Projenizin amacını, neden önemli olduğunu ve kimlere hitap ettiğini anlatan kısa ve öz bir sunum hazırlayın.
+
+Geliştirdiğiniz prototipin ekran görüntülerini veya kısa bir demo videosunu ekleyin.
+
+En önemlisi: Yaptığınız hackathon odaklı MVP'yi ve gelecekteki potansiyelini vurgulayın. (Örn: "Şu an metin tabanlı, ama gelecekte ses ve yüz tanıma eklenebilir.")
+
+Çözdüğünüz sorun: "Çocukların/gençlerin sosyal becerilerini güvenli bir sanal ortamda pratik yaparak geliştirmelerini sağlayan YZ destekli bir platform."
+
+Özgünlük: YZ destekli interaktif rol yapma, kişiselleştirilmiş geri bildirimler.
+
+Gün 13: Final Dokunuşlar ve Sunum
+Son Kontroller: Prototipin sorunsuz çalıştığından emin olun.
+
+Sunum Pratiği: Ekip olarak sunumu birkaç kez prova edin. Zamanlamaya dikkat edin.
+
+Enerji ve Tutku: Projenize olan inancınızı ve heyecanınızı sunumda yansıtın!
