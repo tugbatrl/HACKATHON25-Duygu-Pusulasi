@@ -4,121 +4,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Duygu Pusulası - Öğretmen</title>
-    <style>.teacher-form {
-        max-width: 500px;
-        margin: 50px auto;
-        padding: 40px;
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 15px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      }
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        font-family: 'Segoe UI', sans-serif;
-        background-image: url(static/images/arkaplan2.jpg) no repeat center center fixed;
-        background-size: cover;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .container {
-        background: rgba(255, 255, 255, 0.85);
-        padding: 40px;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        width: 90%;
-        max-width: 500px;
-        transition: all 0.3s ease-in-out;
-        height: 600px;
-      }
-      
-      .form-title {
-        color: #333;
-        font-size: 3em;
-        margin-bottom: 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-align: center;
-      }
-      
-      .form-group {
-        margin-bottom: 20px;
-      }
-      
-      .form-group label {
-        display: block;
-        margin-bottom: 8px;
-        color: #555;
-        font-weight: bold;
-      }
-      
-      .form-group input {
-        width: 100%;
-        padding: 12px;
-        border: 2px solid #ddd;
-        border-radius: 8px;
-        font-size: 16px;
-        transition: border-color 0.3s ease;
-      }
-      
-      .form-group input:focus {
-        outline: none;
-        border-color: #f093fb;
-      }
-      
-      .start-btn {
-        width: 100%;
-        padding: 15px;
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        color: white;
-        border: none;
-        border-radius: 10px;
-        font-size: 1.2em;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin-top: 20px;
-      }
-      
-      .start-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      }
-      
-      .back-btn {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        padding: 10px 20px;
-        background: rgba(255, 255, 255, 0.9);
-        color: #333;
-        text-decoration: none;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-      }
-      
-      .back-btn:hover {
-        background: rgba(255, 255, 255, 1);
-        transform: translateY(-1px);
-      }
-      
-      .teacher-info {
-        background: #f8f9fa;
-        padding: 15px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        border-left: 4px solid #f093fb;
-      }
-      
-      .teacher-info p {
-        margin: 5px 0;
-        color: #666;
-        font-size: 0.9em;
-      }</style>
+    <style>
+    .teacher-form {
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url(static/images/arkaplan2.jpg) no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 500px;
+      transition: all 0.3s ease-in-out;
+      height: 600px;
+    }
+    
+    .form-title {
+      color: #333;
+      font-size: 3em;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-weight: bold;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: #f093fb;
+    }
+    
+    .start-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+    }
+    
+    .start-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 1);
+      transform: translateY(-1px);
+    }
+    
+    .teacher-info {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid #f093fb;
+    }
+    
+    .teacher-info p {
+      margin: 5px 0;
+      color: #666;
+      font-size: 0.9em;
+    }</style>
 </head>
 
 <body>
@@ -127,15 +128,6 @@
     <div class="container">
         <div class="teacher-form">
             <h1 class="form-title">Öğretmen Girişi</h1>
-            
-            <div class="teacher-info">
-                <p><strong>Öğretmen Paneli:</strong></p>
-                <p>• Öğrenci raporlarını görüntüleyebilirsiniz</p>
-                <p>• Sınıf bazında analiz yapabilirsiniz</p>
-                <p>• Öğrenci gelişimini takip edebilirsiniz</p>
-                <p>• Detaylı raporları inceleyebilirsiniz</p>
-            </div>
-            
             <form id="teacher-form" method="POST" action="/teacher_login">
                 <div class="form-group">
                     <label for="name">Adınız:</label>
@@ -156,13 +148,13 @@
             </form>
         </div>
     </div>
-
+    
     <script>
-        // Hata mesajını göster (eğer varsa)
-        var errorMessage = "{{ error if error else '' }}";
-        if (errorMessage) {
-            alert(errorMessage);
-        }
+        // // Hata mesajını göster (eğer varsa)
+        // var errorMessage = "{{ error if error else '' }}";
+        // if (errorMessage) {
+        //     alert(errorMessage);
+        // }
     </script>
 </body>
 </html> 

@@ -10,7 +10,7 @@
         margin: 0;
         padding: 0;
         font-family: 'Segoe UI', sans-serif;
-        background-image: url(static/images/arkaplan2.jpg) no repeat center center fixed;
+        background: url(static/images/arkaplan2.jpg) no-repeat center center fixed;
         background-size: cover;
         min-height: 100vh;
         display: flex;
@@ -26,8 +26,10 @@
         width: 90%;
         max-width: 500px;
         transition: all 0.3s ease-in-out;
-        height: 600px;
-      }
+        width: 1000px;
+        max-width: 1500px;   
+        margin: 50px auto;      
+  /}
         .reports-container {
             max-width: 1200px;
             margin: 50px auto;
@@ -35,6 +37,7 @@
             background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            width: 800px;
         }
         
         .page-header {
@@ -165,7 +168,7 @@
             </div>
         </div>
     </div>
-
+    <script src="{{url_for('static' , filename='script.js')}}"  defer></script>
     <script>
         // Sayfa yüklendiğinde raporları yükle
         document.addEventListener('DOMContentLoaded', function() {
@@ -184,13 +187,13 @@
                     if (data.success) {
                         document.getElementById('class-info').textContent = `${data.class_name} Sınıfı`;
                     } else {
-                        // Eğer bilgi yoksa ana sayfaya yönlendir
-                        window.location.href = '/';
+                        // Eğer bilgi yoksa çıkış yap
+                        window.location.href = '/logout';
                     }
                 })
                 .catch(error => {
                     console.error('Öğretmen bilgisi yükleme hatası:', error);
-                    window.location.href = '/';
+                    window.location.href = '/logout';
                 });
         }
         

@@ -8,7 +8,6 @@ let scenarios = {};
 
 
 function loadScenarios() {
-  
   fetch('/api/student-progress')
     .then(response => {
       if (!response.ok) {
@@ -80,14 +79,7 @@ function loadScenarios() {
 }
 
 
-const scenarioText = document.getElementById("scenario-text");
-const optionsContainer = document.getElementById("options-container");
-const reportContainer = document.getElementById("report-container");
-const teacherReport = document.getElementById("teacher-report-content");
-const restartButton = document.getElementById("restart-button");
 
-
-const scenarioBox = document.getElementById('scenario-box');
 
 
 let currentStep = "step1"
@@ -100,35 +92,51 @@ window.collectedAnswers = answers;
 function showScenario(stepId){
   const step = scenarios[stepId];
   
- 
+  // DOM elementlerini kontrol et
+  const scenarioText = document.getElementById('scenario-text');
+  const optionsContainer = document.getElementById('options-container');
+  
   if (!step) {
     console.error('Senaryo bulunamadı:', stepId);
-    scenarioText.textContent = 'Senaryo yüklenirken bir hata oluştu. Lütfen sayfayı yenileyin.';
+    if (scenarioText) {
+      scenarioText.textContent = 'Senaryo yüklenirken bir hata oluştu. Lütfen sayfayı yenileyin.';
+    }
     return;
   }
   
   currentStep = stepId;
 
-  scenarioText.textContent = step.text;
-  optionsContainer.innerHTML = "";
-  restartButton.style.display = "none";
+  if (scenarioText) {
+    scenarioText.textContent = step.text;
+  }
+  
+  if (optionsContainer) {
+    optionsContainer.innerHTML = "";
+  }
 
-  step.options.forEach(option => {
-    const button = document.createElement("button");
-    button.textContent = option.text;
-    button.onclick = () => {
-      
-      saveAnswerAndContinue(stepId, option.value);
-    };
-    optionsContainer.appendChild(button);
-  });
+  if (step.options && optionsContainer) {
+    step.options.forEach(option => {
+      const button = document.createElement("button");
+      button.textContent = option.text;
+      button.className = 'option-btn';
+      button.onclick = () => {
+        saveAnswerAndContinue(stepId, option.value);
+      };
+      optionsContainer.appendChild(button);
+    });
+  }
 
   if (stepId === "end") {
-    scenarioText.textContent = step.text;
-    optionsContainer.innerHTML = "";
-    showReportPlaceholder();
-
-    restartButton.style.display = "block";
+    // Sadece tamamlandı mesajını göster
+    if (scenarioText) {
+      scenarioText.textContent = "Oyun tamamlandı! Rapor öğretmenine gönderildi.";
+    }
+    if (optionsContainer) {
+      optionsContainer.innerHTML = "";
+    }
+    
+    // Raporu arka planda oluştur
+    generateReportSilently();
   }
 }
 
@@ -172,17 +180,26 @@ function saveAnswerAndContinue(stepId, choice) {
 }
 
 function showReportPlaceholder() {
-  optionsContainer.innerHTML = "";
-  reportContainer.style.display = "block";
+  const optionsContainer = document.getElementById('options-container');
+  const scenarioText = document.getElementById('scenario-text');
   
+  if (optionsContainer) {
+    optionsContainer.innerHTML = "";
+  }
   
-  generateReport();
+  // Sadece tamamlandı mesajını göster
+  if (scenarioText) {
+    scenarioText.textContent = "Oyun tamamlandı! Rapor öğretmenine gönderildi.";
+  }
+  
+  // Raporu arka planda oluştur ama gösterme
+  generateReportSilently();
 }
 
-function generateReport() {
+function generateReportSilently() {
   const answers = window.collectedAnswers || [];
   
-  
+  // Cevapları progress formatına çevir
   const progress = {};
   answers.forEach(answer => {
     progress[answer.step] = answer.choice;
@@ -205,21 +222,18 @@ function generateReport() {
   })
   .then(data => {
     if (data.status === 'success') {
-     
-      teacherReport.textContent = data.report_text || 'Rapor oluşturuldu!';
-      
-      
+      // Raporu session'a kaydet ama gösterme
       saveReportToSession({
         report: data.report_text || 'Rapor oluşturuldu!',
         answers: answers
       });
+      console.log('Rapor başarıyla oluşturuldu ve kaydedildi.');
     } else {
-      teacherReport.textContent = data.message || 'Rapor oluşturulurken bir hata oluştu.';
+      console.error('Rapor oluşturma hatası:', data.message);
     }
   })
   .catch(error => {
     console.error('Rapor oluşturma hatası:', error);
-    teacherReport.textContent = 'Rapor oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.';
   });
 }
 
@@ -229,13 +243,6 @@ function loadNextStep() {
   loadScenarios();
 }
 
-restartButton.onclick = () => {
-  answers = [];
-  currentStep = "step1"
-  reportContainer.style.display = "none";
-  
-  loadScenarios();
-};
 
 
 

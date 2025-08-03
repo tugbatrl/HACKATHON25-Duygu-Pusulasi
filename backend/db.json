@@ -11,10 +11,163 @@
             "surname": "tarla",
             "user_type": "ogretmen",
             "class_name": "6b"
+        },
+        "3": {
+            "name": "Tuğba",
+            "surname": "Tarla",
+            "user_type": "ogrenci",
+            "grade": "5A"
+        },
+        "4": {
+            "name": "Canan",
+            "surname": "Karabulut",
+            "user_type": "ogretmen",
+            "class_name": "5A"
+        },
+        "5": {
+            "name": "ali",
+            "surname": "veli",
+            "user_type": "ogrenci",
+            "grade": "5A"
+        },
+        "6": {
+            "name": "Ali",
+            "surname": "veli",
+            "user_type": "ogrenci",
+            "grade": "5A"
+        },
+        "7": {
+            "name": "Fatma",
+            "surname": "Tarla",
+            "user_type": "ogrenci",
+            "grade": "5A"
+        },
+        "8": {
+            "name": "Ramazan",
+            "surname": "Tarla",
+            "user_type": "ogrenci",
+            "grade": "5A"
+        },
+        "9": {
+            "name": "Hale",
+            "surname": "Jale",
+            "user_type": "ogrenci",
+            "grade": "5A"
+        },
+        "10": {
+            "name": "Mehmet",
+            "surname": "Sal",
+            "user_type": "ogrenci",
+            "grade": "6B"
+        },
+        "11": {
+            "name": "Tuğba",
+            "surname": "Tarla",
+            "user_type": "ogretmen",
+            "class_name": "6B"
         }
     },
-    "reports": {},
+    "reports": {
+        "1": {
+            "student_id": "3",
+            "student_name": "Tuğba",
+            "student_surname": "Tarla",
+            "student_grade": "5A",
+            "answers": {
+                "step1": "A",
+                "step2": "A",
+                "step3": "B",
+                "step4": "B"
+            },
+            "report_text": "### Öğrenci Gelişim Özeti (Otomatik Rapor)\n\nBu rapor, yapay zeka modelinin geçici olarak kullanılamaması nedeniyle temel bir değerlendirme içermektedir.\n\nBu öğrencinin cevapları incelendiğinde:\n- Empati kurma ve yeni bir öğrenciyi kapsama konusunda pozitif bir yaklaşım sergiliyor.\n- Zorbalık karşısında pasif bir tepki veriyor. Bu durum, özgüven üzerinde çalışılması gerektiğini gösterir.\n\n**Güçlü Yönler:**\n- Empati kurma\n- Problem çözme becerisi\n- Sosyal sorumluluk\n\n**Geliştirilmesi Gereken Alanlar:**\n- Durumsal farkındalık ve doğru tepki verme\n- Zorbalık karşısında daha proaktif olma\n\n**Öneriler:**\n- Öğrenciye empati ve sosyal sorumluluk konularında destekleyici hikayeler okutulabilir.\n- Zorbalık durumunda doğru iletişim kurma ve yardım isteme becerileri öğretilmelidir.",
+            "timestamp": "2025-08-03T14:17:09.582906"
+        },
+        "2": {
+            "student_id": "6",
+            "student_name": "Ali",
+            "student_surname": "veli",
+            "student_grade": "5A",
+            "answers": {
+                "step1": "A",
+                "step2": "A",
+                "step3": "A",
+                "step4": "A"
+            },
+            "report_text": "### Öğrenci Gelişim Özeti (Otomatik Rapor)\n\nBu rapor, yapay zeka modelinin geçici olarak kullanılamaması nedeniyle temel bir değerlendirme içermektedir.\n\nBu öğrencinin cevapları incelendiğinde:\n- Empati kurma ve yeni bir öğrenciyi kapsama konusunda pozitif bir yaklaşım sergiliyor.\n- Zorbalığa karşı durma ve özgüvenli bir tavır sergileme potansiyeli gösteriyor.\n- Doğru zamanda yardım isteme ve sorunları yetkili birine bildirme sorumluluğu taşıyor.\n\n**Güçlü Yönler:**\n- Empati kurma\n- Problem çözme becerisi\n- Sosyal sorumluluk\n\n**Geliştirilmesi Gereken Alanlar:**\n- Durumsal farkındalık ve doğru tepki verme\n- Zorbalık karşısında daha proaktif olma\n\n**Öneriler:**\n- Öğrenciye empati ve sosyal sorumluluk konularında destekleyici hikayeler okutulabilir.\n- Zorbalık durumunda doğru iletişim kurma ve yardım isteme becerileri öğretilmelidir.",
+            "timestamp": "2025-08-03T15:02:45.275446"
+        },
+        "3": {
+            "student_id": "6",
+            "student_name": "Ali",
+            "student_surname": "veli",
+            "student_grade": "5A",
+            "answers": {
+                "step1": "C",
+                "step2": "A",
+                "step3": "A",
+                "step4": "A"
+            },
+            "report_text": "### Öğrenci Gelişim Özeti (Otomatik Rapor)\n\nBu rapor, yapay zeka modelinin geçici olarak kullanılamaması nedeniyle temel bir değerlendirme içermektedir.\n\nBu öğrencinin cevapları incelendiğinde:\n- Aile içinde sorumluluk alma ve yardım etme bilinci gösteriyor.\n- Empati kurma ve yeni bir öğrenciyi kapsama konusunda pozitif bir yaklaşım sergiliyor.\n- Zorbalığa karşı durma ve özgüvenli bir tavır sergileme potansiyeli gösteriyor.\n- Doğru zamanda yardım isteme ve sorunları yetkili birine bildirme sorumluluğu taşıyor.\n\n**Güçlü Yönler:**\n- Empati kurma\n- Problem çözme becerisi\n- Sosyal sorumluluk\n\n**Geliştirilmesi Gereken Alanlar:**\n- Durumsal farkındalık ve doğru tepki verme\n- Zorbalık karşısında daha proaktif olma\n\n**Öneriler:**\n- Öğrenciye empati ve sosyal sorumluluk konularında destekleyici hikayeler okutulabilir.\n- Zorbalık durumunda doğru iletişim kurma ve yardım isteme becerileri öğretilmelidir.",
+            "timestamp": "2025-08-03T15:06:28.772314"
+        },
+        "4": {
+            "student_id": "7",
+            "student_name": "Fatma",
+            "student_surname": "Tarla",
+            "student_grade": "5A",
+            "answers": {
+                "step1": "C",
+                "step2": "A",
+                "step3": "A",
+                "step4": "A"
+            },
+            "report_text": "### Öğrenci Gelişim Özeti (Otomatik Rapor)\n\nBu rapor, yapay zeka modelinin geçici olarak kullanılamaması nedeniyle temel bir değerlendirme içermektedir.\n\nBu öğrencinin cevapları incelendiğinde:\n- Aile içinde sorumluluk alma ve yardım etme bilinci gösteriyor.\n- Empati kurma ve yeni bir öğrenciyi kapsama konusunda pozitif bir yaklaşım sergiliyor.\n- Zorbalığa karşı durma ve özgüvenli bir tavır sergileme potansiyeli gösteriyor.\n- Doğru zamanda yardım isteme ve sorunları yetkili birine bildirme sorumluluğu taşıyor.\n\n**Güçlü Yönler:**\n- Empati kurma\n- Problem çözme becerisi\n- Sosyal sorumluluk\n\n**Geliştirilmesi Gereken Alanlar:**\n- Durumsal farkındalık ve doğru tepki verme\n- Zorbalık karşısında daha proaktif olma\n\n**Öneriler:**\n- Öğrenciye empati ve sosyal sorumluluk konularında destekleyici hikayeler okutulabilir.\n- Zorbalık durumunda doğru iletişim kurma ve yardım isteme becerileri öğretilmelidir.",
+            "timestamp": "2025-08-03T15:17:01.360369"
+        },
+        "5": {
+            "student_id": "8",
+            "student_name": "Ramazan",
+            "student_surname": "Tarla",
+            "student_grade": "5A",
+            "answers": {
+                "step1": "A",
+                "step2": "A",
+                "step3": "A",
+                "step4": "A"
+            },
+            "report_text": "### Öğrenci Gelişim Özeti (Otomatik Rapor)\n\nBu rapor, yapay zeka modelinin geçici olarak kullanılamaması nedeniyle temel bir değerlendirme içermektedir.\n\nBu öğrencinin cevapları incelendiğinde:\n- Empati kurma ve yeni bir öğrenciyi kapsama konusunda pozitif bir yaklaşım sergiliyor.\n- Zorbalığa karşı durma ve özgüvenli bir tavır sergileme potansiyeli gösteriyor.\n- Doğru zamanda yardım isteme ve sorunları yetkili birine bildirme sorumluluğu taşıyor.\n\n**Güçlü Yönler:**\n- Empati kurma\n- Problem çözme becerisi\n- Sosyal sorumluluk\n\n**Geliştirilmesi Gereken Alanlar:**\n- Durumsal farkındalık ve doğru tepki verme\n- Zorbalık karşısında daha proaktif olma\n\n**Öneriler:**\n- Öğrenciye empati ve sosyal sorumluluk konularında destekleyici hikayeler okutulabilir.\n- Zorbalık durumunda doğru iletişim kurma ve yardım isteme becerileri öğretilmelidir.",
+            "timestamp": "2025-08-03T15:20:33.230770"
+        },
+        "6": {
+            "student_id": "9",
+            "student_name": "Hale",
+            "student_surname": "Jale",
+            "student_grade": "5A",
+            "answers": {
+                "step1": "C",
+                "step2": "A",
+                "step3": "A",
+                "step4": "A"
+            },
+            "report_text": "### Öğrenci Gelişim Özeti (Otomatik Rapor)\n\nBu rapor, yapay zeka modelinin geçici olarak kullanılamaması nedeniyle temel bir değerlendirme içermektedir.\n\nBu öğrencinin cevapları incelendiğinde:\n- Aile içinde sorumluluk alma ve yardım etme bilinci gösteriyor.\n- Empati kurma ve yeni bir öğrenciyi kapsama konusunda pozitif bir yaklaşım sergiliyor.\n- Zorbalığa karşı durma ve özgüvenli bir tavır sergileme potansiyeli gösteriyor.\n- Doğru zamanda yardım isteme ve sorunları yetkili birine bildirme sorumluluğu taşıyor.\n\n**Güçlü Yönler:**\n- Empati kurma\n- Problem çözme becerisi\n- Sosyal sorumluluk\n\n**Geliştirilmesi Gereken Alanlar:**\n- Durumsal farkındalık ve doğru tepki verme\n- Zorbalık karşısında daha proaktif olma\n\n**Öneriler:**\n- Öğrenciye empati ve sosyal sorumluluk konularında destekleyici hikayeler okutulabilir.\n- Zorbalık durumunda doğru iletişim kurma ve yardım isteme becerileri öğretilmelidir.",
+            "timestamp": "2025-08-03T15:31:41.583792"
+        },
+        "7": {
+            "student_id": "10",
+            "student_name": "Mehmet",
+            "student_surname": "Sal",
+            "student_grade": "6B",
+            "answers": {
+                "step1": "B",
+                "step2": "B",
+                "step3": "B",
+                "step4": "C"
+            },
+            "report_text": "### Öğrenci Gelişim Özeti (Otomatik Rapor)\n\nBu rapor, yapay zeka modelinin geçici olarak kullanılamaması nedeniyle temel bir değerlendirme içermektedir.\n\nBu öğrencinin cevapları incelendiğinde:\n- Zorbalık karşısında pasif bir tepki veriyor. Bu durum, özgüven üzerinde çalışılması gerektiğini gösterir.\n- Sorunları kendi başına çözmeye çalışma eğilimi var. Bu durum, yardımlaşmanın önemini anlamak için destek gerektirebilir.\n\n**Güçlü Yönler:**\n- Empati kurma\n- Problem çözme becerisi\n- Sosyal sorumluluk\n\n**Geliştirilmesi Gereken Alanlar:**\n- Durumsal farkındalık ve doğru tepki verme\n- Zorbalık karşısında daha proaktif olma\n\n**Öneriler:**\n- Öğrenciye empati ve sosyal sorumluluk konularında destekleyici hikayeler okutulabilir.\n- Zorbalık durumunda doğru iletişim kurma ve yardım isteme becerileri öğretilmelidir.",
+            "timestamp": "2025-08-03T15:33:17.198883"
+        }
+    },
     "student_progress": {},
-    "next_user_id": 3,
-    "next_report_id": 1
+    "next_user_id": 12,
+    "next_report_id": 8
 }

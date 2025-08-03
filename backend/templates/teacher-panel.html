@@ -10,13 +10,14 @@
         margin: 0;
         padding: 0;
         font-family: 'Segoe UI', sans-serif;
-        background-image: url(static/images/arkaplan2.jpg) no repeat center center fixed;
+        background: url(static/images/arkaplan2.jpg) no-repeat center center fixed;
         background-size: cover;
         min-height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
       }
+           
         .teacher-panel {
             max-width: 1200px;
             margin: 50px auto;
@@ -132,7 +133,7 @@
 </head>
 
 <body>
-    <a href="/" class="back-btn">← Ana Sayfa</a>
+    <a href="/logout" class="back-btn">← Çıkış Yap</a>
     
     <div class="container">
         <div class="teacher-panel">
@@ -199,7 +200,7 @@
             </div>
         </div>
     </div>
-
+    <script src="{{url_for('static' , filename='script.js')}}"  defer></script>
     <script>
         // Sayfa yüklendiğinde öğretmen bilgilerini göster
         document.addEventListener('DOMContentLoaded', function() {
@@ -219,13 +220,13 @@
                         document.getElementById('teacher-info').textContent = 
                             `${data.name} ${data.surname} - ${data.class_name} Sınıfı`;
                     } else {
-                        // Eğer bilgi yoksa ana sayfaya yönlendir
-                        window.location.href = '/';
+                        // Eğer bilgi yoksa çıkış yap
+                        window.location.href = '/logout';
                     }
                 })
                 .catch(error => {
                     console.error('Öğretmen bilgisi yükleme hatası:', error);
-                    window.location.href = '/';
+                    window.location.href = '/logout';
                 });
         }
         

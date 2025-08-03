@@ -22,7 +22,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', sans-serif;
-            background-image: url(static/images/arkaplan2.jpg) no repeat center center fixed;
+            background: url(static/images/arkaplan2.jpg) no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
             display: flex;
@@ -36,9 +36,10 @@
             border-radius: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             width: 90%;
-            max-width: 600px;
+            max-width: 800px;
             transition: all 0.3s ease-in-out;
-            height: 600px;
+            min-height: 600px;
+            height: auto;
             position: relative;
             display: flex;
             justify-content: center;
@@ -53,6 +54,8 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
+            width: 100%;
+            min-height: 500px;
         }
         
         .user-info {
@@ -181,8 +184,8 @@
         }
         
         .option-btn {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
+            background: linear-gradient(135deg, #f093fb 0%, #1a1011 100%);
+            color: black;
             padding: 15px 25px;
             border: none;
             border-radius: 12px;
@@ -191,12 +194,12 @@
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: left;
-            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+            box-shadow: 0 4px 15px rgba(18, 17, 17, 0.3);
         }
         
         .option-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+            box-shadow: 0 4px 15px rgba(21, 20, 20, 0.4);
         }
         
         .feedback {
@@ -208,19 +211,6 @@
             font-size: 1.1em;
             color: #333;
         }
-        
-        #restart-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            width: 200px;
-            height: 50px;
-        }
-        
-        #restart-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-        }
-        
         .screen {
             display: none;
             text-align: center;
@@ -258,9 +248,12 @@
     border-left: 6px solid #764ba2;
     box-shadow: 0 6px 20px rgba(118, 75, 162, 0.2);
     margin-bottom: 35px;
-    max-width: 550px;
+    max-width: 700px;
+    width: 100%;
     line-height: 1.7;
     transition: 0.3s ease-in-out;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .scenario-text:hover {
@@ -274,13 +267,13 @@
     flex-direction: column;
     gap: 20px;
     width: 100%;
-    max-width: 550px;
+    max-width: 700px;
     margin: 0 auto;
 }
 
 .option-btn {
     background: linear-gradient(135deg, #ffe0ec, #f093fb);
-    color: #4a0033;
+    color: black;
     padding: 18px 25px;
     border: none;
     border-radius: 15px;
@@ -289,12 +282,12 @@
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: left;
-    box-shadow: 0 6px 16px rgba(245, 87, 108, 0.25);
+    box-shadow: 0 6px 16px rgba(21, 19, 19, 0.25);
 }
 
 .option-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(245, 87, 108, 0.4);
+    box-shadow: 0 10px 25px rgba(9, 8, 8, 0.4);
 }
 
 /* feedback alanı */
@@ -336,7 +329,7 @@
 </head>
 
 <body>
-    <a href="/" class="back-btn">← Ana Sayfa</a>
+    <a href="/logout" class="back-btn">← Çıkış Yap</a>
     
     <div class="user-info" id="user-info">
         <h3>Kullanıcı Bilgileri</h3>
@@ -360,20 +353,23 @@
         <div id="report-container" class="screen" style="display: none;">
             <h2>Öğrenci Raporu</h2>
             <p id="teacher-report-content"></p>
-            <button id="restart-button">Tekrar Oyna</button>
         </div>
     </div>
     
-    <script src="../../ui/static/script.js"></script>
+    <script src="{{url_for('static' , filename='script.js')}}" defer></script>
     <script>
         // Sayfa yüklendiğinde kullanıcı bilgilerini göster
         document.addEventListener('DOMContentLoaded', function() {
             // Öğrenci bilgilerini API'den al
             loadStudentInfo();
         });
+
+        const scenarioText = document.getElementById('scenario-text');
+        const optionsContainer = document.getElementById('options-container');
+        const reportContainer = document.getElementById('report-container');
+        const teacherReport = document.getElementById('teacher-report-content');
         
         function loadStudentInfo() {
-            // Öğrenci bilgilerini session'dan al
             fetch('/api/student-info')
                 .then(response => response.json())
                 .then(data => {
@@ -384,13 +380,12 @@
                         userName.textContent = `Öğrenci: ${data.name} ${data.surname}`;
                         userClass.textContent = `Sınıf: ${data.grade}`;
                     } else {
-                        // Eğer bilgi yoksa ana sayfaya yönlendir
-                        window.location.href = '/';
+                        window.location.href = '/logout';
                     }
                 })
                 .catch(error => {
                     console.error('Öğrenci bilgisi yükleme hatası:', error);
-                    window.location.href = '/';
+                    window.location.href = '/logout';
                 });
         }
         
@@ -399,9 +394,10 @@
             document.getElementById('screen-login').style.display = 'none';
             document.getElementById('scenario-content').style.display = 'block';
             // Oyunu başlat
-            loadNextStep();
-        }
-    );
+            loadScenarios();
+        });
     </script>
+    
+    
 </body>
 </html> 
