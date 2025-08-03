@@ -22,7 +22,7 @@ DB_FILE = 'db.json'
 file_lock = threading.Lock()
 
 def load_data():
-    """Veritabanı dosyasını güvenli bir şekilde yükler."""
+    
     with file_lock:
         try:
             with open(DB_FILE, 'r', encoding='utf-8') as f:
@@ -31,7 +31,7 @@ def load_data():
             return {"users": {}, "reports": {}, "student_progress": {}, "next_user_id": 1, "next_report_id": 1}
 
 def save_data(data):
-    """Veritabanı dosyasını güvenli bir şekilde kaydeder."""
+   
     with file_lock:
         with open(DB_FILE, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4, ensure_ascii=False)
@@ -42,7 +42,7 @@ try:
     if not api_key:
         raise ValueError("GOOGLE_API_KEY ortam değişkeni eksik.")
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-pro')
+    model = genai.GenerativeModel(model_name="models/gemini-1.5-pro-latest")
 except (KeyError, ValueError) as e:
     raise RuntimeError(f"API yapılandırma hatası: {e}")
 
