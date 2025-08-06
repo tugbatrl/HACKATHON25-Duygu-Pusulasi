@@ -10,6 +10,9 @@
 - 🧑‍🏫 Öğretmen kontrol paneli  
  🎨 Basit ve anlaşılır kullanıcı arayüzü
 
+## Proje linki: 
+https://duygu-pusulasi.onrender.com
+
 ## 🤝 Katkıda Bulunanlar
 -👩‍💻 Canan Şeyda Karabulut – Backend & AI Entegrasyonu   
 -👩‍💻 Tuğba Tarla – Frontend & Tasarım
